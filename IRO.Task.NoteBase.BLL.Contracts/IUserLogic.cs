@@ -1,4 +1,4 @@
-﻿using IRO.Task.NoteBase;
+﻿using IRO.Tast.NoteBase.Entities;
 using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.BLL.Contracts

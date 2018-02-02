@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}</ProjectGuid>
+    <ProjectGuid>{6F6FE3D4-CC3E-4BAD-8212-EF137B777110}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IRO.Task.NoteBase.BLL.Contracts</RootNamespace>
-    <AssemblyName>IRO.Task.NoteBase.BLL.Contracts</AssemblyName>
+    <RootNamespace>IRO.Task.NoteBase.BLL.Core</RootNamespace>
+    <AssemblyName>IRO.Task.NoteBase.BLL.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserLogic.cs" />
+    <Compile Include="UserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IRO.Task.NoteBase.BLL.Contracts\IRO.Task.NoteBase.BLL.Contracts.csproj">
+      <Project>{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}</Project>
+      <Name>IRO.Task.NoteBase.BLL.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
       <Project>{02716313-4C35-42DB-A96B-A159926A8C05}</Project>
       <Name>IRO.Task.NoteBase.Entities</Name>
