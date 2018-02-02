@@ -2,6 +2,7 @@
 using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.BLL.Core;
 using IRO.Task.NoteBase.Entities;
+using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -92,7 +93,7 @@ namespace IRO.Task.NoteBase.PL
 
         private static void List(IUserLogic userLogic)
         {
-            var users = userLogic.List();
+            List<User> users = userLogic.List();
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
