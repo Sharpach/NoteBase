@@ -13,12 +13,13 @@ namespace IRO.Task.NoteBase.PL
             IUserLogic userLogic = new UserLogic();
             //INoteLogic noteLogic = new NoteLogic();
             //IBookLogic bookLogic = new BookLogic();
-
+            string input = "";
             do
             {
                 Console.Clear();
                 DisplayCommands();
-                switch (Console.ReadLine())
+                input = Console.ReadLine();
+                switch (input)
                 {
                     case "AddUser":
                         {
@@ -53,6 +54,10 @@ namespace IRO.Task.NoteBase.PL
                             Console.Clear();
                             break;
                         }
+                        case "Quit":
+                        {
+                            return;
+                        }
                     default:
                         {
                             Console.Clear();
@@ -62,7 +67,7 @@ namespace IRO.Task.NoteBase.PL
                 }
             }
 
-            while (Console.ReadKey().Key != ConsoleKey.Q);
+            while (input != "Quit");
         }
 
         private static void DisplayCommands()
