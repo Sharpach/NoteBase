@@ -17,6 +17,7 @@ namespace IRO.Task.NoteBase.PL
             do
             {
                 Console.Clear();
+                if (userLogic.ActiveUser != null) Console.WriteLine($"Добро пожаловать, {userLogic.ActiveUser.Name}");
                 DisplayCommands();
                 input = Console.ReadLine();
                 switch (input)
@@ -62,6 +63,7 @@ namespace IRO.Task.NoteBase.PL
                         {
                             Console.Clear();
                             Console.WriteLine("Ошибка выбора!");
+                            Console.ReadLine();
                             break;
                         }
                 }
@@ -71,8 +73,7 @@ namespace IRO.Task.NoteBase.PL
         }
 
         private static void DisplayCommands()
-        {
-            Console.WriteLine("AddUser - Добавление пользователя в программу\n" +
+        {            Console.WriteLine("AddUser - Добавление пользователя в программу\n" +
                               "Login - вход под пользователем из списка\n" +
                               "List - вывести имена всех пользователей\n" +
                               "AddNote - добавить записку в книгу\n" +
@@ -117,8 +118,22 @@ namespace IRO.Task.NoteBase.PL
         private static void Login(IUserLogic userLogic)
         {
             Console.Write("Введите айди пользователя для входа: ");
-            uint.TryParse(Console.ReadLine(), out var id);
-            userLogic.Login(id);
+            if (!uint.TryParse(Console.ReadLine(), out var id))
+            {
+                Console.WriteLine("ID не может быть меньше нуля");
+                Console.ReadLine();
+                return;
+            }
+            if(userLogic.Login(id))
+            {
+                Console.WriteLine($"Вы успешно зашли, {userLogic.ActiveUser.Name}");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Во время входа произошла ошибка!");
+                Console.ReadLine();
+            }
         }
 
         //private static void AddNote(INoteLogic noteLogic)

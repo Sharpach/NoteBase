@@ -23,12 +23,11 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool Login(uint userId)
         {
-             var loggedUser = _userDao.GetUserById(userId);
-            if (loggedUser == null)
+            User loggedUser = _userDao.GetUserById(userId);
+            if(loggedUser == null)
                 return false;
             ActiveUser = loggedUser;
             return true;
-
         }
 
         public List<User> List()
