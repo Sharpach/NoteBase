@@ -5,12 +5,11 @@ namespace IRO.Task.NoteBase.DAL.Contracts
 {
     public interface IBookDao
     {
-        bool AddBook();
-        bool GetBookByID();
+        bool AddBook(Book book);
+        bool GetBookByID(uint bookID);
         List<Book> GetBooksList();
-        bool AddNote();
+        bool AddNote(Note note);
         bool GetNoteByID(uint noteID);
         List<Note> GetNotesList();
-
     }
 }
