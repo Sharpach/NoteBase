@@ -141,7 +141,12 @@ namespace IRO.Task.NoteBase.PL
 
         //}
 
-        //private static void ShowAllNotes(IBookLogic noteLogic)
+        //private static void ShowAllNotes(IBookLogic booklogic)
+        //{
+
+        //}
+
+        //private static void AddBook(IBookLogic booklogic)
         //{
 
         //}
