@@ -21,7 +21,6 @@ namespace IRO.Task.NoteBase.DAL.Memory
             Memory.Add(user);
             return true;
         }
-
         public User GetUserById(uint userId)
         {
             return Memory.Find(x => x.Id == userId);

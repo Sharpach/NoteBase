@@ -4,5 +4,6 @@
     {
         public uint Id;
         public string Text;
+        public Book BookParent;
     }
 }
