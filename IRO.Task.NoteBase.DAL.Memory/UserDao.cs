@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using IRO.Task.NoteBase.DAL.Contracts;
 using IRO.Task.NoteBase.Entities;
 
@@ -6,19 +7,23 @@ namespace IRO.Task.NoteBase.DAL.Memory
 {
     public class UserDao : IUserDao
     {
+        private List<User> Memory { get; set; }
         public bool AddUser(User user)
         {
-            throw new NotImplementedException();
+
+            if (Memory.Count == 0) user.Id = 0;
+            else user.Id = Memory.FindLast(x => true).Id + 1;
+            return true;
         }
 
-        public bool GetUserById(uint userId)
+        public User GetUserById(uint userId)
         {
-            throw new NotImplementedException();
+            return Memory.Find(x => x.Id == userId);
         }
 
-        public bool GetUsersList()
+        public List<User> GetUsersList()
         {
-            throw new NotImplementedException();
+            return Memory;
         }
     }
 }
