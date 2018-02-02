@@ -13,7 +13,7 @@ namespace IRO.Task.NoteBase.PL
             IUserLogic userLogic = new UserLogic();
             //INoteLogic noteLogic = new NoteLogic();
             //IBookLogic bookLogic = new BookLogic();
-            string input = "";
+            string input = string.Empty;
             do
             {
                 Console.Clear();
@@ -108,6 +108,8 @@ namespace IRO.Task.NoteBase.PL
             {
                 Console.WriteLine($"id:{user.Id} name:{user.Name}");
             }
+
+            Console.ReadLine();
         }
 
         private static void Login(IUserLogic userLogic)
