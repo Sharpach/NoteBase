@@ -7,6 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.PL", "IRO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Tast.NoteBase.Entities", "IRO.Tast.NoteBase.Entities\IRO.Tast.NoteBase.Entities.csproj", "{02716313-4C35-42DB-A96B-A159926A8C05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{5D82E800-1243-4AA1-9B8A-925A0535F09E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{ED0B509F-FF91-4D73-A678-B86C99546641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{1239F4E5-1539-4140-A5A3-800D4388C59C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.BLL.Contracts", "IRO.Task.NoteBase.BLL.Contracts\IRO.Task.NoteBase.BLL.Contracts.csproj", "{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +29,17 @@ Global
 		{02716313-4C35-42DB-A96B-A159926A8C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02716313-4C35-42DB-A96B-A159926A8C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02716313-4C35-42DB-A96B-A159926A8C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25F2B756-142A-4DD2-A7DC-AA87C3A3D932} = {1239F4E5-1539-4140-A5A3-800D4388C59C}
+		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1} = {5D82E800-1243-4AA1-9B8A-925A0535F09E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97411702-F845-4A9B-84AA-B490FAE2C09E}
