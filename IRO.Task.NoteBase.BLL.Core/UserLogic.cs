@@ -11,7 +11,7 @@ namespace IRO.Task.NoteBase.BLL.Core
         {
             return false;
         }
-        public bool Login(uint userID)
+        public bool Login(uint userId)
         {
             return false;
         }
