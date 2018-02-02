@@ -87,6 +87,7 @@ namespace IRO.Task.NoteBase.PL
             if (name == string.Empty)
             {
                 Console.WriteLine("Имя не корректно!");
+                Console.ReadLine();
                 return;
             }
             var user = new User
@@ -102,14 +103,15 @@ namespace IRO.Task.NoteBase.PL
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
+                Console.ReadLine();
                 return;
             }
             foreach (var user in users)
             {
                 Console.WriteLine($"id:{user.Id} name:{user.Name}");
             }
-
             Console.ReadLine();
+            return;
         }
 
         private static void Login(IUserLogic userLogic)
