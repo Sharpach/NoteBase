@@ -7,12 +7,12 @@ namespace IRO.Task.NoteBase.DAL.Memory
 {
     public class UserDao : IUserDao
     {
-        private List<User> Memory { get; set; }
+        private List<User> Memory;
         public bool AddUser(User user)
         {
-
             if (Memory.Count == 0) user.Id = 0;
             else user.Id = Memory.FindLast(x => true).Id + 1;
+            Memory.Add(user);
             return true;
         }
 
