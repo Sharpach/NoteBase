@@ -8,7 +8,7 @@ namespace IRO.Tast.NoteBase.Entities
 {
     public class Note
     {
-        public uint ID;
+        public uint Id;
         public string Text;
     }
 }

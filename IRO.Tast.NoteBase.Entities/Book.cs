@@ -2,7 +2,7 @@
 {
     public class Book
     {
-        public uint ID;
+        public uint Id;
         //public 
     }
 }

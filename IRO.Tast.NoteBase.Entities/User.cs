@@ -2,7 +2,7 @@
 {
     public class User
     {
-        public uint ID;
+        public uint Id;
         public string Name;
     }
 }

@@ -43,5 +43,11 @@
     <Compile Include="IUserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Tast.NoteBase.Entities.csproj">
+      <Project>{02716313-4c35-42db-a96b-a159926a8c05}</Project>
+      <Name>IRO.Tast.NoteBase.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
