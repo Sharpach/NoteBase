@@ -5,36 +5,31 @@ using IRO.Task.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.DAL.Memory
 {
-    class BookDao : IBookDao
+    public class BookDao : IBookDao
     {
+        private List<Book> Memory;
+        public BookDao()
+        {
+            Memory = new List<Book>();
+        }
         public bool AddBook(Book book)
         {
-            throw new NotImplementedException();
+            if (Memory.Count == 0)
+                book.Id = 0;
+            else
+                book.Id = Memory[Memory.Count - 1].Id + 1;
+            Memory.Add(book);
+            return true;
         }
 
-        public bool AddNote(Note note)
+        public Book GetBookByID(uint bookId)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool GetBookByID(uint bookID)
-        {
-            throw new NotImplementedException();
+            return Memory.Find(x => x.Id == bookId);
         }
 
         public List<Book> GetBooksList()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool GetNoteByID(uint noteID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Note> GetNotesList()
-        {
-            throw new NotImplementedException();
+            return Memory;
         }
     }
 }

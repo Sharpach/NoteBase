@@ -1,12 +1,12 @@
-﻿using System;
+﻿using IRO.Task.NoteBase.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IRO.Task.NoteBase.DAL.Contracts
 {
-    class INoteDao
+    public interface INoteDao
     {
+        bool AddNote(Note note);
+        Note GetNoteByID(uint noteID);
+        List<Note> GetNotesList();
     }
 }
