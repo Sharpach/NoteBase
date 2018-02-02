@@ -1,4 +1,6 @@
 ﻿using System;
+using IRO.Task.NoteBase.BLL.Contracts;
+using IRO.Tast.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -6,6 +8,10 @@ namespace IRO.Task.NoteBase.PL
     {
         private static void Main(string[] args)
         {
+            IUserLogic userLogic = new UserLogic();
+            INoteLogic noteLogic = new NoteLogic();
+            IBookLogic bookLogic = new BookLogic();
+
             do
             {
                 DisplayCommands();
@@ -14,6 +20,7 @@ namespace IRO.Task.NoteBase.PL
                     case "AddUser":
                         {
                             Console.Clear();
+                            AddUser(userLogic);
                             break;
                         }
                     case "Login":
@@ -24,6 +31,7 @@ namespace IRO.Task.NoteBase.PL
                     case "List":
                         {
                             Console.Clear();
+                            List(userLogic);
                             break;
                         }
                     case "AddNote":
@@ -49,6 +57,7 @@ namespace IRO.Task.NoteBase.PL
                         }
                 }
             }
+
             while (Console.ReadKey().Key != ConsoleKey.Q);
         }
 
@@ -62,5 +71,40 @@ namespace IRO.Task.NoteBase.PL
                               "Books - вывести ID всех книг");
         }
 
+        private static void AddUser(IUserLogic userLogic)
+        {
+            Console.Write("Введите имя пользователя: ");
+            string name = Console.ReadLine();
+            var user = new User
+            {
+                Name = name,
+            };
+            userLogic.AddUser(user);
+        }
+
+        private static void List(IUserLogic userLogic)
+        {
+
+        }
+
+        //private static void Login(IUserLogic userLogic)
+        //{
+
+        //}
+
+        //private static void AddNote(INoteLogic noteLogic)
+        //{
+
+        //}
+
+        //private static void ShowAllNotes(IBookLogic noteLogic)
+        //{
+
+        //}
+
+        //private static void Books(IBookLogic bookLogic)
+        //{
+
+        //}
     }
 }

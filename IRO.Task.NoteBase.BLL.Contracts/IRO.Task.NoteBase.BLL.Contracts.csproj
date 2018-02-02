@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
-      <Project>{02716313-4C35-42DB-A96B-A159926A8C05}</Project>
-      <Name>IRO.Task.NoteBase.Entities</Name>
+    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Tast.NoteBase.Entities.csproj">
+      <Project>{02716313-4c35-42db-a96b-a159926a8c05}</Project>
+      <Name>IRO.Tast.NoteBase.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
