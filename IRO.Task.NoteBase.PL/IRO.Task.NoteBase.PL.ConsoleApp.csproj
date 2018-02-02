@@ -53,7 +53,11 @@
       <Project>{7fb0777c-0e07-4309-b70f-5f7b5aa9a7c1}</Project>
       <Name>IRO.Task.NoteBase.BLL.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Tast.NoteBase.Entities.csproj">
+    <ProjectReference Include="..\IRO.Task.NoteBase.BLL.Core\IRO.Task.NoteBase.BLL.Core.csproj">
+      <Project>{6f6fe3d4-cc3e-4bad-8212-ef137b777110}</Project>
+      <Name>IRO.Task.NoteBase.BLL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
       <Project>{02716313-4c35-42db-a96b-a159926a8c05}</Project>
       <Name>IRO.Tast.NoteBase.Entities</Name>
     </ProjectReference>

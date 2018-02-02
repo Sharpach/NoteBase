@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using IRO.Tast.NoteBase.Entities;
+using IRO.Task.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.BLL.Contracts
 {

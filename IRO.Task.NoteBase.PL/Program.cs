@@ -1,5 +1,6 @@
 ﻿using System;
 using IRO.Task.NoteBase.BLL.Contracts;
+using IRO.Task.NoteBase.Entities;
 using IRO.Tast.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.PL
