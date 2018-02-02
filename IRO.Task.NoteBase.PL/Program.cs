@@ -1,7 +1,7 @@
 ﻿using System;
 using IRO.Task.NoteBase.BLL.Contracts;
+using IRO.Task.NoteBase.BLL.Core;
 using IRO.Task.NoteBase.Entities;
-using IRO.Tast.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -85,7 +85,11 @@ namespace IRO.Task.NoteBase.PL
 
         private static void List(IUserLogic userLogic)
         {
-
+            var users = userLogic.List();
+            foreach (var user in users)
+            {
+                Console.WriteLine($"id:{user.Id} name:{user.Name}");
+            }
         }
 
         //private static void Login(IUserLogic userLogic)
