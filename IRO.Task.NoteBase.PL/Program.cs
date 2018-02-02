@@ -28,6 +28,7 @@ namespace IRO.Task.NoteBase.PL
                     case "Login":
                         {
                             Console.Clear();
+                            Login(userLogic);
                             break;
                         }
                     case "List":
@@ -103,10 +104,12 @@ namespace IRO.Task.NoteBase.PL
             }
         }
 
-        //private static void Login(IUserLogic userLogic)
-        //{
-
-        //}
+        private static void Login(IUserLogic userLogic)
+        {
+            Console.Write("Введите айди пользователя для входа: ");
+            uint.TryParse(Console.ReadLine(), out var id);
+            userLogic.Login(id);
+        }
 
         //private static void AddNote(INoteLogic noteLogic)
         //{
