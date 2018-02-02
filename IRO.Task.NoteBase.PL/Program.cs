@@ -10,11 +10,12 @@ namespace IRO.Task.NoteBase.PL
         private static void Main(string[] args)
         {
             IUserLogic userLogic = new UserLogic();
-            INoteLogic noteLogic = new NoteLogic();
-            IBookLogic bookLogic = new BookLogic();
+            //INoteLogic noteLogic = new NoteLogic();
+            //IBookLogic bookLogic = new BookLogic();
 
             do
             {
+                Console.Clear();
                 DisplayCommands();
                 switch (Console.ReadLine())
                 {
@@ -76,6 +77,11 @@ namespace IRO.Task.NoteBase.PL
         {
             Console.Write("Введите имя пользователя: ");
             string name = Console.ReadLine();
+            if (name == string.Empty)
+            {
+                Console.WriteLine("Имя не корректно!");
+                return;
+            }
             var user = new User
             {
                 Name = name,
@@ -86,6 +92,11 @@ namespace IRO.Task.NoteBase.PL
         private static void List(IUserLogic userLogic)
         {
             var users = userLogic.List();
+            if (users.Count < 1)
+            {
+                Console.WriteLine("Пользователей нет!");
+                return;
+            }
             foreach (var user in users)
             {
                 Console.WriteLine($"id:{user.Id} name:{user.Name}");
