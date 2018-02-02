@@ -1,4 +1,4 @@
-﻿namespace IRO.Tast.NoteBase.Entities
+﻿namespace IRO.Task.NoteBase.Entities
 {
     public class Book
     {
