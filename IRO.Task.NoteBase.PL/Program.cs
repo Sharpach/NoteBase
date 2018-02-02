@@ -11,6 +11,7 @@ namespace IRO.Task.NoteBase.PL
             IUserLogic userLogic = new UserLogic();
             INoteLogic noteLogic = new NoteLogic();
             IBookLogic bookLogic = new BookLogic();
+
             do
             {
                 DisplayCommands();
@@ -56,6 +57,7 @@ namespace IRO.Task.NoteBase.PL
                         }
                 }
             }
+
             while (Console.ReadKey().Key != ConsoleKey.Q);
         }
 

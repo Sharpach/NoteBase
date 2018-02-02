@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.PL", "IRO.Task.NoteBase.PL\IRO.Task.NoteBase.PL.csproj", "{25F2B756-142A-4DD2-A7DC-AA87C3A3D932}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.PL.ConsoleApp", "IRO.Task.NoteBase.PL\IRO.Task.NoteBase.PL.ConsoleApp.csproj", "{25F2B756-142A-4DD2-A7DC-AA87C3A3D932}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Tast.NoteBase.Entities", "IRO.Tast.NoteBase.Entities\IRO.Tast.NoteBase.Entities.csproj", "{02716313-4C35-42DB-A96B-A159926A8C05}"
 EndProject
