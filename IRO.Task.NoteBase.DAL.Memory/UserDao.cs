@@ -17,7 +17,7 @@ namespace IRO.Task.NoteBase.DAL.Memory
             if (Memory.Count == 0)
                 user.Id = 0;
             else
-                user.Id = Memory[Memory.Count].Id + 1;
+                user.Id = Memory[Memory.Count-1].Id + 1;
             Memory.Add(user);
             return true;
         }
