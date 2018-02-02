@@ -10,6 +10,5 @@ namespace IRO.Tast.NoteBase.Entities
     {
         public uint ID;
         public string Text;
-
     }
 }
