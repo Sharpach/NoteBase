@@ -5,7 +5,7 @@ namespace IRO.Task.NoteBase.Entities
     public class Book
     {
         public uint Id;
-        public List<Note> Notes;
+        public string Name;
         public User Owner; 
     }
 }
