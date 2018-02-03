@@ -1,9 +1,5 @@
 ﻿using IRO.Task.NoteBase.BLL.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IRO.Task.NoteBase.Entities;
 using IRO.Task.NoteBase.DAL.Memory;
 
@@ -21,6 +17,6 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public List<Book> GetAll() => _bookDao.GetAll();
         public List<Book> GetByUser(User user) => _bookDao.GetByUser(user);
-        public Book GetByID(uint bookID) => _bookDao.GetByID(bookID);
+        public Book GetById(uint bookId) => _bookDao.GetById(bookId);
     }
 }

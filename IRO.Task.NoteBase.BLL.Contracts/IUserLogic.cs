@@ -7,7 +7,7 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     {
         bool AddUser(User user);
         List<User> GetAll();
-        User GetByID(uint userId);
+        User GetById(uint userId);
         bool Login(uint userId);
         User ActiveUser { get; }
     }

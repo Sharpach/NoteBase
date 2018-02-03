@@ -27,7 +27,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public User GetByID(uint userID) => _userDao.GetById(userID);
+        public User GetById(uint userId) => _userDao.GetById(userId);
 
         public List<User> GetAll() => _userDao.GetAll();
     }

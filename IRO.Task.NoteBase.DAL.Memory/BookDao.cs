@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IRO.Task.NoteBase.DAL.Contracts;
 using IRO.Task.NoteBase.Entities;
 
@@ -22,7 +21,7 @@ namespace IRO.Task.NoteBase.DAL.Memory
             return true;
         }
 
-        public Book GetByID(uint bookId) => Memory.Find(x => x.Id == bookId);
+        public Book GetById(uint bookId) => Memory.Find(x => x.Id == bookId);
         public List<Book> GetByUser(User user) => Memory.FindAll(x => x.Owner == user);
         public List<Book> GetAll() => Memory;
     }

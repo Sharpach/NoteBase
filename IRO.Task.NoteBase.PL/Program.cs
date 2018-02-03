@@ -88,7 +88,7 @@ namespace IRO.Task.NoteBase.PL
                      "List\t\t- вывести имена всех пользователей\n" +
                      "AddNote\t\t- добавить записку в книгу\n" +
                      "ShowAllNotes\t- вывести все записки из книги\n" +
-                     "Books\t\t- вывести ID всех книг");
+                     "Books\t\t- вывести Id всех книг");
         }
 
         private static void AddUser(IUserLogic userLogic)
@@ -128,7 +128,7 @@ namespace IRO.Task.NoteBase.PL
             Console.Write("Введите айди пользователя для входа: ");
             if (!uint.TryParse(Console.ReadLine(), out uint id))
             {
-                Console.WriteLine("ID пользователя некорректно!");
+                Console.WriteLine("Id пользователя некорректно!");
                 return;
             }
 
@@ -153,14 +153,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine("Введите ID книги: ");
+            Console.WriteLine("Введите Id книги: ");
             if (!uint.TryParse(Console.ReadLine(), out uint bookId))
             {
-                Console.WriteLine("ID книги некорректно!");
+                Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            Book book = bookLogic.GetByID(bookId);
+            Book book = bookLogic.GetById(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -192,14 +192,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.Write("Введите ID книги, записки из которой хотите узнать: ");
+            Console.Write("Введите Id книги, записки из которой хотите узнать: ");
             if (!uint.TryParse(Console.ReadLine(), out uint bookId))
             {
-                Console.WriteLine("ID книги некорректно!");
+                Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            Book book = bookLogic.GetByID(bookId);
+            Book book = bookLogic.GetById(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -241,7 +241,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            User user = userLogic.GetByID(userLogic.ActiveUser.Id);
+            User user = userLogic.GetById(userLogic.ActiveUser.Id);
             Book book = new Book
             {
                 Name = name,

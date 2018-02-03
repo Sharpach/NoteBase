@@ -1,10 +1,6 @@
 ﻿using IRO.Task.NoteBase.DAL.Contracts;
 using IRO.Task.NoteBase.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IRO.Task.NoteBase.DAL.Memory
 {
@@ -24,7 +20,7 @@ namespace IRO.Task.NoteBase.DAL.Memory
             Memory.Add(note);
             return true;
         }
-        public Note GetByID(uint NoteId) => Memory.Find(x => x.Id == NoteId);
+        public Note GetById(uint NoteId) => Memory.Find(x => x.Id == NoteId);
         public List<Note> GetByBook(Book book) => Memory.FindAll(x => x.ParentBook == book);
         public List<Note> GetAll() => Memory;
     }
