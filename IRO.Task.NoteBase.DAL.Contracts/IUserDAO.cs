@@ -6,7 +6,7 @@ namespace IRO.Task.NoteBase.DAL.Contracts
     public interface IUserDao
     {
         bool AddUser(User user);
-        User GetById(uint userId);
-        List<User> GetAll();
+        User GetUserById(uint userId);
+        List<User> GetUsersList();
     }
 }

@@ -1,34 +1,23 @@
 ﻿using System.Collections.Generic;
 using IRO.Task.NoteBase.BLL.Contracts;
-using IRO.Task.NoteBase.DAL.Contracts;
-using IRO.Task.NoteBase.DAL.Memory;
 using IRO.Task.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IUserDao _userDao;
         public User ActiveUser { get; private set; }
-
-        public UserLogic()
+        public bool AddUser(User user)
         {
-            _userDao = new UserDao();
+            return false;
         }
-
-        public bool AddUser(User user) => _userDao.AddUser(user);
-
         public bool Login(uint userId)
         {
-            User loggedUser = _userDao.GetById(userId);
-            if(loggedUser == null)
-                return false;
-            ActiveUser = loggedUser;
-            return true;
+            return false;
         }
-
-        public User GetById(uint userId) => _userDao.GetById(userId);
-
-        public List<User> GetAll() => _userDao.GetAll();
+        public List<User> List()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
