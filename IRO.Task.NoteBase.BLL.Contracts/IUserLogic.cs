@@ -6,8 +6,7 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     public interface IUserLogic
     {
         bool AddUser(User user);
-        List<User> GetAll();
-        User GetById(uint userId);
+        List<User> List();
         bool Login(uint userId);
         User ActiveUser { get; }
     }
