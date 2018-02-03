@@ -6,7 +6,7 @@ namespace IRO.Task.NoteBase.DAL.Contracts
     public interface IBookDao
     {
         bool AddBook(Book book);
-        Book GetBookByID(uint bookID);
+        Book GetByID(uint bookID);
         List<Book> GetBooksList();
     }
 }

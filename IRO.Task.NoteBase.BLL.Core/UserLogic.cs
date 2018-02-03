@@ -23,7 +23,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool Login(uint userId)
         {
-            User loggedUser = _userDao.GetUserById(userId);
+            User loggedUser = _userDao.GetById(userId);
             if(loggedUser == null)
                 return false;
             ActiveUser = loggedUser;
