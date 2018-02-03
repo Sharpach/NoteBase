@@ -9,7 +9,7 @@ using IRO.Task.NoteBase.DAL.Memory;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
-    class NoteLogic : INoteLogic
+    public class NoteLogic : INoteLogic
     {
         private readonly NoteDao _noteDao;
 

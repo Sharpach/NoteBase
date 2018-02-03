@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.BLL.Contracts
 {
-    interface IBookLogic
+    public interface IBookLogic
     {
         bool AddBook(Book book);
         List<Book> GetAll();

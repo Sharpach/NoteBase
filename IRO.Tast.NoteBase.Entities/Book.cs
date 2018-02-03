@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace IRO.Task.NoteBase.Entities
+﻿namespace IRO.Task.NoteBase.Entities
 {
     public class Book
     {

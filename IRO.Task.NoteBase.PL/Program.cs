@@ -11,7 +11,7 @@ namespace IRO.Task.NoteBase.PL
         private static void Main(string[] args)
         {
             IUserLogic userLogic = new UserLogic();
-            //INoteLogic noteLogic = new NoteLogic();
+            INoteLogic noteLogic = new NoteLogic();
             //IBookLogic bookLogic = new BookLogic();
             string input = string.Empty;
             //if (userLogic.ActiveUser != null) Console.WriteLine($"Добро пожаловать, {userLogic.ActiveUser.Name}");
@@ -118,7 +118,6 @@ namespace IRO.Task.NoteBase.PL
             {
                 Console.WriteLine($"id:{user.Id}\tname:{user.Name}");
             }
-            return;
         }
 
         private static void Login(IUserLogic userLogic)
@@ -126,7 +125,7 @@ namespace IRO.Task.NoteBase.PL
             Console.Write("Введите айди пользователя для входа: ");
             if (!uint.TryParse(Console.ReadLine(), out var id))
             {
-                Console.WriteLine("ID некорректно!");
+                Console.WriteLine("ID пользователя некорректно!");
                 return;
             }
             if(userLogic.Login(id))
@@ -139,24 +138,135 @@ namespace IRO.Task.NoteBase.PL
             }
         }
 
-        //private static void AddNote(INoteLogic noteLogic)
-        //{
+        private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic)
+        {
+            if (userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Перед добавлением записки вы должны быть авторизованы!");
+                return;
+            }
+            Console.Write("Введите текст записки: ");
+            string text = Console.ReadLine();
+            Console.WriteLine("Введите ID книги: ");
+            if (!uint.TryParse(Console.ReadLine(), out var bookId))
+            {
+                Console.WriteLine("ID книги некорректно!");
+                return;
+            }
+            Book book = bookLogic.GetByID(bookId);
+            if(book.Owner != userLogic.ActiveUser)
+            {
+                Console.WriteLine("Книга не принадлежит вам.");
+                return;
+            }
+            if (book == null)
+            {
+                Console.WriteLine("Книга не найдена!");
+                return;
+            }
+            if (text == string.Empty)
+            {
+                Console.WriteLine("Текст некорректен!");
+                return;
+            }
+            var note = new Note
+            {
+                Text = text,
+                ParentBook = book
+            };
+            if (noteLogic.AddNote(note))
+            {
+                Console.WriteLine("Записка успешно добавлена.");
+            }
+            else
+            {
+                Console.WriteLine("Во время добавления записки произошла ошибка!");
+            }
+        }
 
-        //}
+        private static void ShowAllNotes(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic)
+        {
+            if (userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!");
+                return;
+            }
+            Console.WriteLine("Введите ID книги, записки из которой хотите узнать: ");
+            if (!uint.TryParse(Console.ReadLine(), out var bookId))
+            {
+                Console.WriteLine("ID книги некорректно!");
+                return;
+            }
+            Book book = bookLogic.GetByID(bookId);
+            if (book.Owner != userLogic.ActiveUser)
+            {
+                Console.WriteLine("Книга не принадлежит вам.");
+                return;
+            }
+            if (book == null)
+            {
+                Console.WriteLine("Книга не найдена!");
+                return;
+            }
+            List<Note> notes = noteLogic.GetAll();
+            if (notes.Count < 1)
+            {
+                Console.WriteLine("Записок нет!");
+                return;
+            }
+            foreach (Note note in notes.FindAll(x => x.ParentBook == book))
+            {
+                Console.WriteLine($"id:{note.Id}\tname:{note.Text}");
+            }
+        }
 
-        //private static void ShowAllNotes(IBookLogic booklogic)
-        //{
+        private static void AddBook(IBookLogic bookLogic, IUserLogic userLogic)
+        {
+            if(userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Перед добавлением книги вы должны быть авторизованы!");
+                return;
+            }
+            Console.Write("Введите название книги: ");
+            string name = Console.ReadLine();
+            User user = userLogic.GetByID(userLogic.ActiveUser.Id);
+            if (name == string.Empty)
+            {
+                Console.WriteLine("Название некорректно!");
+                return;
+            }
+            var book = new Book
+            {
+                Name = name,
+                Owner = user
+            };
+            if (bookLogic.AddBook(book))
+            {
+                Console.WriteLine("Книга успешно добавлена.");
+            }
+            else
+            {
+                Console.WriteLine("Во время добавления книги произошла ошибка!");
+            }
+        }
 
-        //}
-
-        //private static void AddBook(IBookLogic booklogic)
-        //{
-
-        //}
-
-        //private static void Books(IBookLogic bookLogic)
-        //{
-
-        //}
+        private static void Books(IBookLogic bookLogic, IUserLogic userLogic)
+        {
+            if(userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Для вывода списка всех книг вы должны быть авторизованы!");
+                return;
+            }
+            List<Book> books = bookLogic.GetAll();
+            if (books.Count < 1)
+            {
+                Console.WriteLine("Книг нет!");
+                return;
+            }
+            foreach (Book book in books)
+            {
+                Console.WriteLine($"id:{book.Id}\tname:{book.Name}");
+            }
+        }
     }
 }
