@@ -2,6 +2,7 @@
 using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.BLL.Core;
 using IRO.Task.NoteBase.Entities;
+using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -99,7 +100,7 @@ namespace IRO.Task.NoteBase.PL
                 Console.WriteLine("Имя некорректно!");
                 return;
             }
-            var user = new User
+            User user = new User
             {
                 Name = name,
             };
@@ -110,13 +111,13 @@ namespace IRO.Task.NoteBase.PL
 
         private static void List(IUserLogic userLogic)
         {
-            var users = userLogic.GetAll();
+            List<User> users = userLogic.GetAll();
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
                 return;
             }
-            foreach (var user in users)
+            foreach (User user in users)
             {
                 Console.WriteLine($"id:{user.Id}\tname:{user.Name}");
             }
@@ -125,7 +126,7 @@ namespace IRO.Task.NoteBase.PL
         private static void Login(IUserLogic userLogic)
         {
             Console.Write("Введите айди пользователя для входа: ");
-            if (!uint.TryParse(Console.ReadLine(), out var id))
+            if (!uint.TryParse(Console.ReadLine(), out uint id))
             {
                 Console.WriteLine("ID пользователя некорректно!");
                 return;
@@ -153,13 +154,13 @@ namespace IRO.Task.NoteBase.PL
             }
 
             Console.WriteLine("Введите ID книги: ");
-            if (!uint.TryParse(Console.ReadLine(), out var bookId))
+            if (!uint.TryParse(Console.ReadLine(), out uint bookId))
             {
                 Console.WriteLine("ID книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetByID(bookId);
+            Book book = bookLogic.GetByID(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -172,7 +173,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            var note = new Note
+            Note note = new Note
             {
                 Text = text,
                 ParentBook = book
@@ -192,13 +193,13 @@ namespace IRO.Task.NoteBase.PL
             }
 
             Console.Write("Введите ID книги, записки из которой хотите узнать: ");
-            if (!uint.TryParse(Console.ReadLine(), out var bookId))
+            if (!uint.TryParse(Console.ReadLine(), out uint bookId))
             {
                 Console.WriteLine("ID книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetByID(bookId);
+            Book book = bookLogic.GetByID(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -211,14 +212,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            var notes = noteLogic.GetAll();
+            List<Note> notes = noteLogic.GetByBook(book);
             if (notes.Count < 1)
             {
                 Console.WriteLine("Записок нет!");
                 return;
             }
 
-            foreach (Note note in notes.FindAll(x => x.ParentBook == book)) //TODO: вынести в бд
+            foreach(Note note in notes)
             {
                 Console.WriteLine($"id:{note.Id}\tname:{note.Text}");
             }
@@ -240,8 +241,8 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            var user = userLogic.GetByID(userLogic.ActiveUser.Id);
-            var book = new Book
+            User user = userLogic.GetByID(userLogic.ActiveUser.Id);
+            Book book = new Book
             {
                 Name = name,
                 Owner = user
@@ -260,14 +261,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            var books = bookLogic.GetAll();
+            List<Book> books = bookLogic.GetByUser(userLogic.ActiveUser);
             if (books.Count < 1)
             {
                 Console.WriteLine("Книг нет!");
                 return;
             }
 
-            foreach (Book book in books) //TODO: проверка на юзера и вынести в бд
+            foreach (Book book in books)
             {
                 Console.WriteLine($"id:{book.Id}\tname:{book.Name}");
             }

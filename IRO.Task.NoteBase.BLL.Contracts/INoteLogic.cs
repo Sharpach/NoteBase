@@ -7,6 +7,7 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     {
         bool AddNote(Note note);
         List<Note> GetAll();
+        List<Note> GetByBook(Book book);
         Note GetByID(uint noteID);
     }
 }

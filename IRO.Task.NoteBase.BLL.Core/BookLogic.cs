@@ -20,7 +20,7 @@ namespace IRO.Task.NoteBase.BLL.Core
         public bool AddBook(Book book) => _bookDao.AddBook(book);
 
         public List<Book> GetAll() => _bookDao.GetAll();
-
+        public List<Book> GetByUser(User user) => _bookDao.GetByUser(user);
         public Book GetByID(uint bookID) => _bookDao.GetByID(bookID);
     }
 }

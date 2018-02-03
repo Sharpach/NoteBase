@@ -23,7 +23,7 @@ namespace IRO.Task.NoteBase.DAL.Memory
         }
 
         public Book GetByID(uint bookId) => Memory.Find(x => x.Id == bookId);
-
+        public List<Book> GetByUser(User user) => Memory.FindAll(x => x.Owner == user);
         public List<Book> GetAll() => Memory;
     }
 }
