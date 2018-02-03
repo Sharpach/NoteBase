@@ -7,6 +7,6 @@ namespace IRO.Task.NoteBase.DAL.Contracts
     {
         bool AddNote(Note note);
         Note GetByID(uint noteID);
-        List<Note> GetNotesList();
+        List<Note> GetAll();
     }
 }

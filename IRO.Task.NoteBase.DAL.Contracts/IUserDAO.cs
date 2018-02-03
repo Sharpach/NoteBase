@@ -7,6 +7,6 @@ namespace IRO.Task.NoteBase.DAL.Contracts
     {
         bool AddUser(User user);
         User GetById(uint userId);
-        List<User> GetUsersList();
+        List<User> GetAll();
     }
 }

@@ -24,15 +24,8 @@ namespace IRO.Task.NoteBase.DAL.Memory
             Memory.Add(note);
             return true;
         }
+        public Note GetByID(uint NoteId) => Memory.Find(x => x.Id == NoteId);
 
-        public Note GetByID(uint NoteId)
-        {
-            return Memory.Find(x => x.Id == NoteId);
-        }
-
-        public List<Note> GetNotesList()
-        {
-            return Memory;
-        }
+        public List<Note> GetAll() => Memory;
     }
 }

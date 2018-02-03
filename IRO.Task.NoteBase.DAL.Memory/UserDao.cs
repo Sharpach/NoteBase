@@ -21,14 +21,8 @@ namespace IRO.Task.NoteBase.DAL.Memory
             Memory.Add(user);
             return true;
         }
-        public User GetById(uint userId)
-        {
-            return Memory.Find(x => x.Id == userId);
-        }
+        public User GetById(uint userId) => Memory.Find(x => x.Id == userId);
 
-        public List<User> GetUsersList()
-        {
-            return Memory;
-        }
+        public List<User> GetAll() => Memory;
     }
 }

@@ -22,14 +22,8 @@ namespace IRO.Task.NoteBase.DAL.Memory
             return true;
         }
 
-        public Book GetByID(uint bookId)
-        {
-            return Memory.Find(x => x.Id == bookId);
-        }
+        public Book GetByID(uint bookId) => Memory.Find(x => x.Id == bookId);
 
-        public List<Book> GetBooksList()
-        {
-            return Memory;
-        }
+        public List<Book> GetAll() => Memory;
     }
 }

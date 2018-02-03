@@ -16,10 +16,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             _userDao = new UserDao();
         }
 
-        public bool AddUser(User user)
-        {
-            return _userDao.AddUser(user);
-        }
+        public bool AddUser(User user) => _userDao.AddUser(user);
 
         public bool Login(uint userId)
         {
@@ -30,9 +27,6 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<User> GetAll()
-        {
-            return _userDao.GetUsersList();
-        }
+        public List<User> GetAll() => _userDao.GetAll();
     }
 }

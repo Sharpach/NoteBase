@@ -4,6 +4,10 @@
     {
         public uint Id;
         public string Text;
-        public Book BookParent;
+        public Book ParentBook;
+        public Note(string text, Book parentBook)
+        {
+            ParentBook =  parentBook;
+        }
     }
 }
