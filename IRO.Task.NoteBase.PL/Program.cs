@@ -14,71 +14,73 @@ namespace IRO.Task.NoteBase.PL
             //INoteLogic noteLogic = new NoteLogic();
             //IBookLogic bookLogic = new BookLogic();
             string input = string.Empty;
+            //if (userLogic.ActiveUser != null) Console.WriteLine($"Добро пожаловать, {userLogic.ActiveUser.Name}");
+            DisplayCommands();
             do
             {
-                Console.Clear();
-                if (userLogic.ActiveUser != null) Console.WriteLine($"Добро пожаловать, {userLogic.ActiveUser.Name}");
-                DisplayCommands();
-                input = Console.ReadLine();
+                Console.Write(">");
+                input = Console.ReadLine().ToLower();
                 switch (input)
                 {
-                    case "AddUser":
+                    case "adduser":
                         {
-                            Console.Clear();
                             AddUser(userLogic);
                             break;
                         }
-                    case "Login":
+                    case "login":
                         {
-                            Console.Clear();
                             Login(userLogic);
                             break;
                         }
-                    case "List":
+                    case "list":
                         {
-                            Console.Clear();
                             List(userLogic);
                             break;
                         }
-                    case "AddNote":
+                    case "addnote":
+                        {
+                            break;
+                        }
+                    case "showallnotes":
+                        {
+                            break;
+                        }
+                    case "books":
+                        {
+                            break;
+                        }
+                    case "commands":
+                    case "help":
+                        {
+                            DisplayCommands();
+                            break;
+                        }
+                    case "clear":
                         {
                             Console.Clear();
                             break;
                         }
-                    case "ShowAllNotes":
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                    case "Books":
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                        case "Quit":
+                    case "quit":
                         {
                             return;
                         }
                     default:
                         {
-                            Console.Clear();
                             Console.WriteLine("Ошибка выбора!");
-                            Console.ReadLine();
                             break;
                         }
                 }
             }
-
-            while (input != "Quit");
+            while (input != "quit");
         }
 
         private static void DisplayCommands()
-        {            Console.WriteLine("AddUser - Добавление пользователя в программу\n" +
-                              "Login - вход под пользователем из списка\n" +
-                              "List - вывести имена всех пользователей\n" +
-                              "AddNote - добавить записку в книгу\n" +
-                              "ShowAllNotes - вывести все записки из книги\n" +
-                              "Books - вывести ID всех книг");
+        {            Console.WriteLine("AddUser\t\t- добавление пользователя в программу\n" +
+                              "Login\t\t- вход под пользователем из списка\n" +
+                              "List\t\t- вывести имена всех пользователей\n" +
+                              "AddNote\t\t- добавить записку в книгу\n" +
+                              "ShowAllNotes\t- вывести все записки из книги\n" +
+                              "Books\t\t- вывести ID всех книг");
         }
 
         private static void AddUser(IUserLogic userLogic)
@@ -87,31 +89,35 @@ namespace IRO.Task.NoteBase.PL
             string name = Console.ReadLine();
             if (name == string.Empty)
             {
-                Console.WriteLine("Имя не корректно!");
-                Console.ReadLine();
+                Console.WriteLine("Имя некорректно!");
                 return;
             }
             var user = new User
             {
                 Name = name,
             };
-            userLogic.AddUser(user);
+            if(userLogic.AddUser(user))
+            {
+                Console.WriteLine("Пользователь успешно добавлен.");
+            }
+            else
+            {
+                Console.WriteLine("Во время добавления пользователя произошла ошибка!");
+            }
         }
 
         private static void List(IUserLogic userLogic)
         {
-            List<User> users = userLogic.List();
+            List<User> users = userLogic.GetAll();
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
-                Console.ReadLine();
                 return;
             }
             foreach (var user in users)
             {
-                Console.WriteLine($"id:{user.Id} name:{user.Name}");
+                Console.WriteLine($"id:{user.Id}\tname:{user.Name}");
             }
-            Console.ReadLine();
             return;
         }
 
@@ -120,19 +126,16 @@ namespace IRO.Task.NoteBase.PL
             Console.Write("Введите айди пользователя для входа: ");
             if (!uint.TryParse(Console.ReadLine(), out var id))
             {
-                Console.WriteLine("ID не может быть меньше нуля");
-                Console.ReadLine();
+                Console.WriteLine("ID некорректно!");
                 return;
             }
             if(userLogic.Login(id))
             {
-                Console.WriteLine($"Вы успешно зашли, {userLogic.ActiveUser.Name}");
-                Console.ReadLine();
+                Console.WriteLine($"Вы успешно зашли, {userLogic.ActiveUser.Name}.");
             }
             else
             {
-                Console.WriteLine("Во время входа произошла ошибка!");
-                Console.ReadLine();
+                Console.WriteLine("Пользователь не найден!");
             }
         }
 

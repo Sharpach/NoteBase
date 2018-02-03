@@ -30,7 +30,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<User> List()
+        public List<User> GetAll()
         {
             return _userDao.GetUsersList();
         }
