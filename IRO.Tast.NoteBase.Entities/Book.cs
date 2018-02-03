@@ -3,6 +3,7 @@
     public class Book
     {
         public uint Id;
-        //public 
+        public string Name;
+        public User Owner; 
     }
 }
