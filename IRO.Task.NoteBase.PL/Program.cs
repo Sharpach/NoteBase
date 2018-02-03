@@ -2,7 +2,6 @@
 using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.BLL.Core;
 using IRO.Task.NoteBase.Entities;
-using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -12,14 +11,13 @@ namespace IRO.Task.NoteBase.PL
         {
             IUserLogic userLogic = new UserLogic();
             INoteLogic noteLogic = new NoteLogic();
-            //IBookLogic bookLogic = new BookLogic();
-            string input = string.Empty;
-            //if (userLogic.ActiveUser != null) Console.WriteLine($"Добро пожаловать, {userLogic.ActiveUser.Name}");
+            IBookLogic bookLogic = new BookLogic();
+            string input;
             DisplayCommands();
             do
             {
                 Console.Write(">");
-                input = Console.ReadLine().ToLower();
+                input = Console.ReadLine()?.ToLower();
                 switch (input)
                 {
                     case "adduser":
@@ -39,14 +37,22 @@ namespace IRO.Task.NoteBase.PL
                         }
                     case "addnote":
                         {
+                            AddNote(noteLogic, bookLogic, userLogic);
                             break;
                         }
                     case "showallnotes":
                         {
+                            ShowAllNotes(bookLogic, noteLogic, userLogic);
+                            break;
+                        }
+                    case "addbook":
+                        {
+                            AddBook(bookLogic, userLogic);
                             break;
                         }
                     case "books":
                         {
+                            Books(bookLogic, userLogic);
                             break;
                         }
                     case "commands":
@@ -75,12 +81,13 @@ namespace IRO.Task.NoteBase.PL
         }
 
         private static void DisplayCommands()
-        {            Console.WriteLine("AddUser\t\t- добавление пользователя в программу\n" +
-                              "Login\t\t- вход под пользователем из списка\n" +
-                              "List\t\t- вывести имена всех пользователей\n" +
-                              "AddNote\t\t- добавить записку в книгу\n" +
-                              "ShowAllNotes\t- вывести все записки из книги\n" +
-                              "Books\t\t- вывести ID всех книг");
+        {
+            Console.WriteLine("AddUser\t\t- добавление пользователя в программу\n" +
+                     "Login\t\t- вход под пользователем из списка\n" +
+                     "List\t\t- вывести имена всех пользователей\n" +
+                     "AddNote\t\t- добавить записку в книгу\n" +
+                     "ShowAllNotes\t- вывести все записки из книги\n" +
+                     "Books\t\t- вывести ID всех книг");
         }
 
         private static void AddUser(IUserLogic userLogic)
@@ -96,19 +103,14 @@ namespace IRO.Task.NoteBase.PL
             {
                 Name = name,
             };
-            if(userLogic.AddUser(user))
-            {
-                Console.WriteLine("Пользователь успешно добавлен.");
-            }
-            else
-            {
-                Console.WriteLine("Во время добавления пользователя произошла ошибка!");
-            }
+            Console.WriteLine(userLogic.AddUser(user)
+                ? "Пользователь успешно добавлен."
+                : "Во время добавления пользователя произошла ошибка!");
         }
 
         private static void List(IUserLogic userLogic)
         {
-            List<User> users = userLogic.GetAll();
+            var users = userLogic.GetAll();
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
@@ -128,93 +130,95 @@ namespace IRO.Task.NoteBase.PL
                 Console.WriteLine("ID пользователя некорректно!");
                 return;
             }
-            if(userLogic.Login(id))
-            {
-                Console.WriteLine($"Вы успешно зашли, {userLogic.ActiveUser.Name}.");
-            }
-            else
-            {
-                Console.WriteLine("Пользователь не найден!");
-            }
+
+            Console.WriteLine(userLogic.Login(id)
+                ? $"Вы успешно зашли, {userLogic.ActiveUser.Name}."
+                : "Пользователь не найден!");
         }
 
         private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic)
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед добавлением записки вы должны быть авторизованы!");
+                Console.WriteLine("Перед добавлением записки вы должны быть авторизованы!\n");
                 return;
             }
+
             Console.Write("Введите текст записки: ");
             string text = Console.ReadLine();
+            if (text == string.Empty)
+            {
+                Console.WriteLine("Текст некорректен!");
+                return;
+            }
+
             Console.WriteLine("Введите ID книги: ");
             if (!uint.TryParse(Console.ReadLine(), out var bookId))
             {
                 Console.WriteLine("ID книги некорректно!");
                 return;
             }
-            Book book = bookLogic.GetByID(bookId);
-            if(book.Owner != userLogic.ActiveUser)
-            {
-                Console.WriteLine("Книга не принадлежит вам.");
-                return;
-            }
+
+            var book = bookLogic.GetByID(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
                 return;
             }
-            if (text == string.Empty)
+
+            if (book.Owner != userLogic.ActiveUser)
             {
-                Console.WriteLine("Текст некорректен!");
+                Console.WriteLine("Книга не принадлежит вам.");
                 return;
             }
+
             var note = new Note
             {
                 Text = text,
                 ParentBook = book
             };
-            if (noteLogic.AddNote(note))
-            {
-                Console.WriteLine("Записка успешно добавлена.");
-            }
-            else
-            {
-                Console.WriteLine("Во время добавления записки произошла ошибка!");
-            }
+
+            Console.WriteLine(noteLogic.AddNote(note)
+                ? "Записка успешно добавлена."
+                : "Во время добавления записки произошла ошибка!");
         }
 
         private static void ShowAllNotes(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic)
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!");
+                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!\n");
                 return;
             }
-            Console.WriteLine("Введите ID книги, записки из которой хотите узнать: ");
+
+            Console.Write("Введите ID книги, записки из которой хотите узнать: ");
             if (!uint.TryParse(Console.ReadLine(), out var bookId))
             {
                 Console.WriteLine("ID книги некорректно!");
                 return;
             }
-            Book book = bookLogic.GetByID(bookId);
-            if (book.Owner != userLogic.ActiveUser)
-            {
-                Console.WriteLine("Книга не принадлежит вам.");
-                return;
-            }
+
+            var book = bookLogic.GetByID(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
                 return;
             }
-            List<Note> notes = noteLogic.GetAll();
+
+            if (book.Owner != userLogic.ActiveUser)
+            {
+                Console.WriteLine("Книга не принадлежит вам.");
+                return;
+            }
+
+            var notes = noteLogic.GetAll();
             if (notes.Count < 1)
             {
                 Console.WriteLine("Записок нет!");
                 return;
             }
-            foreach (Note note in notes.FindAll(x => x.ParentBook == book))
+
+            foreach (Note note in notes.FindAll(x => x.ParentBook == book)) //TODO: вынести в бд
             {
                 Console.WriteLine($"id:{note.Id}\tname:{note.Text}");
             }
@@ -222,48 +226,48 @@ namespace IRO.Task.NoteBase.PL
 
         private static void AddBook(IBookLogic bookLogic, IUserLogic userLogic)
         {
-            if(userLogic.ActiveUser == null)
+            if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед добавлением книги вы должны быть авторизованы!");
+                Console.WriteLine("Перед добавлением книги вы должны быть авторизованы!\n");
                 return;
             }
+
             Console.Write("Введите название книги: ");
             string name = Console.ReadLine();
-            User user = userLogic.GetByID(userLogic.ActiveUser.Id);
             if (name == string.Empty)
             {
                 Console.WriteLine("Название некорректно!");
                 return;
             }
+
+            var user = userLogic.GetByID(userLogic.ActiveUser.Id);
             var book = new Book
             {
                 Name = name,
                 Owner = user
             };
-            if (bookLogic.AddBook(book))
-            {
-                Console.WriteLine("Книга успешно добавлена.");
-            }
-            else
-            {
-                Console.WriteLine("Во время добавления книги произошла ошибка!");
-            }
+
+            Console.WriteLine(bookLogic.AddBook(book)
+                ? "Книга успешно добавлена."
+                : "Во время добавления книги произошла ошибка!");
         }
 
         private static void Books(IBookLogic bookLogic, IUserLogic userLogic)
         {
-            if(userLogic.ActiveUser == null)
+            if (userLogic.ActiveUser == null)
             {
                 Console.WriteLine("Для вывода списка всех книг вы должны быть авторизованы!");
                 return;
             }
-            List<Book> books = bookLogic.GetAll();
+
+            var books = bookLogic.GetAll();
             if (books.Count < 1)
             {
                 Console.WriteLine("Книг нет!");
                 return;
             }
-            foreach (Book book in books)
+
+            foreach (Book book in books) //TODO: проверка на юзера и вынести в бд
             {
                 Console.WriteLine($"id:{book.Id}\tname:{book.Name}");
             }
