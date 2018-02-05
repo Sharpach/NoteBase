@@ -86,9 +86,10 @@ namespace IRO.Task.NoteBase.PL
             Console.WriteLine("AddUser\t\t- добавление пользователя в программу\n" +
                      "Login\t\t- вход под пользователем из списка\n" +
                      "List\t\t- вывести имена всех пользователей\n" +
-                     "AddNote\t\t- добавить записку в книгу\n" +
-                     "ShowAllNotes\t- вывести все записки из книги\n" +
-                     "Books\t\t- вывести Id всех книг");
+                     "AddNote\t\t- добавить записку в книгу(Нужна авторизация)\n" +
+                     "ShowAllNotes\t- вывести все записки из книги(Нужна авторизация)\n" +
+                     "Books\t\t- вывести Id всех книг(Нужна авторизация)\n" +
+                     "AddBook\t\t- добавить новую книгу (Нужна авторизация)\n");
         }
 
         private static void AddUser(IUserLogic userLogic)
@@ -141,7 +142,7 @@ namespace IRO.Task.NoteBase.PL
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед добавлением записки вы должны быть авторизованы!\n");
+                Console.WriteLine("Перед добавлением записки вы должны быть авторизованы!");
                 return;
             }
 
@@ -188,7 +189,7 @@ namespace IRO.Task.NoteBase.PL
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!\n");
+                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!");
                 return;
             }
 
@@ -229,11 +230,11 @@ namespace IRO.Task.NoteBase.PL
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед добавлением книги вы должны быть авторизованы!\n");
+                Console.WriteLine("Перед добавлением книги вы должны быть авторизованы!");
                 return;
             }
 
-            Console.Write("Введите название книги: ");
+            Console.Write("Введите айди книги: ");
             string name = Console.ReadLine();
             if (name == string.Empty)
             {
