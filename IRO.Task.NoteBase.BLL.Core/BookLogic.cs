@@ -1,22 +1,34 @@
 ﻿using IRO.Task.NoteBase.BLL.Contracts;
 using System.Collections.Generic;
 using IRO.Task.NoteBase.Entities;
-using IRO.Task.NoteBase.DAL.Memory;
+using IRO.Task.NoteBase.DAL.EF;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
     public class BookLogic : IBookLogic
     {
-        private readonly BookDao _bookDao;
+        //TODO: intefraces EF
+        private readonly MainContext _context;
+        private readonly DbSet<Book> _dbSet;
 
         public BookLogic()
         {
-            _bookDao = new BookDao();
+            _context = new MainContext();
+            _dbSet = _context.Books;
         }
-        public bool AddBook(Book book) => _bookDao.AddBook(book);
 
-        public List<Book> GetAll() => _bookDao.GetAll();
-        public List<Book> GetByUser(User user) => _bookDao.GetByUser(user);
-        public Book GetById(uint bookId) => _bookDao.GetById(bookId);
+        public bool AddBook(Book book)
+        {
+            _dbSet.Add(book);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public List<Book> GetAll() => _dbSet.ToList();
+        public List<Book> GetByUser(User user) => _dbSet.Where(x => x.Owner == user).ToList();
+        public Book GetById(int bookId) => _dbSet.FirstOrDefault(x => x.Id == bookId);
     }
 }

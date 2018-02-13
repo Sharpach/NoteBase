@@ -127,7 +127,7 @@ namespace IRO.Task.NoteBase.PL
         private static void Login(IUserLogic userLogic)
         {
             Console.Write("Введите айди пользователя для входа: ");
-            if (!uint.TryParse(Console.ReadLine(), out uint id))
+            if (!int.TryParse(Console.ReadLine(), out int id))
             {
                 Console.WriteLine("Id пользователя некорректно!");
                 return;
@@ -155,7 +155,7 @@ namespace IRO.Task.NoteBase.PL
             }
 
             Console.WriteLine("Введите Id книги: ");
-            if (!uint.TryParse(Console.ReadLine(), out uint bookId))
+            if (!int.TryParse(Console.ReadLine(), out int bookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
@@ -194,7 +194,7 @@ namespace IRO.Task.NoteBase.PL
             }
 
             Console.Write("Введите Id книги, записки из которой хотите узнать: ");
-            if (!uint.TryParse(Console.ReadLine(), out uint bookId))
+            if (!int.TryParse(Console.ReadLine(), out int bookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;

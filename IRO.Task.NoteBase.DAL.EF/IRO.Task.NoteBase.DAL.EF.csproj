@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25F2B756-142A-4DD2-A7DC-AA87C3A3D932}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>IRO.Task.NoteBase.PL</RootNamespace>
-    <AssemblyName>IRO.Task.NoteBase.PL</AssemblyName>
+    <ProjectGuid>{EA15FB2F-CAC1-4D36-9095-45742025583C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IRO.Task.NoteBase.DAL.EF</RootNamespace>
+    <AssemblyName>IRO.Task.NoteBase.DAL.EF</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="MainContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,20 +55,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IRO.Task.NoteBase.BLL.Contracts\IRO.Task.NoteBase.BLL.Contracts.csproj">
-      <Project>{7fb0777c-0e07-4309-b70f-5f7b5aa9a7c1}</Project>
-      <Name>IRO.Task.NoteBase.BLL.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IRO.Task.NoteBase.BLL.Core\IRO.Task.NoteBase.BLL.Core.csproj">
-      <Project>{6f6fe3d4-cc3e-4bad-8212-ef137b777110}</Project>
-      <Name>IRO.Task.NoteBase.BLL.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IRO.Task.NoteBase.DAL.EF\IRO.Task.NoteBase.DAL.EF.csproj">
-      <Project>{EA15FB2F-CAC1-4D36-9095-45742025583C}</Project>
-      <Name>IRO.Task.NoteBase.DAL.EF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
-      <Project>{02716313-4c35-42db-a96b-a159926a8c05}</Project>
+      <Project>{02716313-4C35-42DB-A96B-A159926A8C05}</Project>
       <Name>IRO.Task.NoteBase.Entities</Name>
     </ProjectReference>
   </ItemGroup>

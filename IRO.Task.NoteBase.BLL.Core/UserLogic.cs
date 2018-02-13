@@ -1,34 +1,43 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using IRO.Task.NoteBase.BLL.Contracts;
-using IRO.Task.NoteBase.DAL.Contracts;
-using IRO.Task.NoteBase.DAL.Memory;
+using IRO.Task.NoteBase.DAL.EF;
 using IRO.Task.NoteBase.Entities;
+using System.Linq;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IUserDao _userDao;
+        //TODO: intefraces EF
+        private readonly MainContext _context;
+        private readonly DbSet<User> _dbSet;
         public User ActiveUser { get; private set; }
 
         public UserLogic()
         {
-            _userDao = new UserDao();
+            _context = new MainContext();
+            _dbSet = _context.Users;
         }
 
-        public bool AddUser(User user) => _userDao.AddUser(user);
-
-        public bool Login(uint userId)
+        public bool AddUser(User user)
         {
-            User loggedUser = _userDao.GetById(userId);
+            _dbSet.Add(user);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool Login(int userId)
+        {
+            User loggedUser = _dbSet.First(x => x.Id == userId);
             if(loggedUser == null)
                 return false;
             ActiveUser = loggedUser;
             return true;
         }
 
-        public User GetById(uint userId) => _userDao.GetById(userId);
+        public User GetById(int userId) => _dbSet.FirstOrDefault(x => x.Id == userId);
 
-        public List<User> GetAll() => _userDao.GetAll();
+        public List<User> GetAll() => _context.GetAll<User>();
     }
 }

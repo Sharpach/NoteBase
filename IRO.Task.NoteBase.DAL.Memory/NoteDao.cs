@@ -20,7 +20,7 @@ namespace IRO.Task.NoteBase.DAL.Memory
             Memory.Add(note);
             return true;
         }
-        public Note GetById(uint NoteId) => Memory.Find(x => x.Id == NoteId);
+        public Note GetById(int NoteId) => Memory.Find(x => x.Id == NoteId);
         public List<Note> GetByBook(Book book) => Memory.FindAll(x => x.ParentBook == book);
         public List<Note> GetAll() => Memory;
     }

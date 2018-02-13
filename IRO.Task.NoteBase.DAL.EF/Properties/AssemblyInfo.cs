@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IRO.Task.NoteBase.BLL.Core")]
+[assembly: AssemblyTitle("IRO.Task.NoteBase.DAL.EF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IRO.Task.NoteBase.BLL.Core")]
+[assembly: AssemblyProduct("IRO.Task.NoteBase.DAL.EF")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,8 +18,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUId is for the Id of the typelib if this project is exposed to COM
-[assembly: Guid("6f6fe3d4-cc3e-4bad-8212-ef137b777110")]
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("ea15fb2f-cac1-4d36-9095-45742025583c")]
 
 // Version information for an assembly consists of the following four values:
 //
