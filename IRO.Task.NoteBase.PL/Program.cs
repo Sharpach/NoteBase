@@ -168,7 +168,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (book.Owner.Id != userLogic.ActiveUser.Id)
+            if (book.OwnerId != userLogic.ActiveUser.Id)
             {
                 Console.WriteLine("Книга не принадлежит вам.");
                 return;
@@ -177,7 +177,7 @@ namespace IRO.Task.NoteBase.PL
             Note note = new Note
             {
                 Text = text,
-                ParentBook = book
+                ParentBookId = book.Id
             };
 
             Console.WriteLine(noteLogic.AddNote(note)
@@ -208,7 +208,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (book.Owner.Id != userLogic.ActiveUser.Id)
+            if (book.OwnerId != userLogic.ActiveUser.Id)
             {
                 Console.WriteLine("Книга не принадлежит вам.");
                 return;
@@ -247,7 +247,7 @@ namespace IRO.Task.NoteBase.PL
             Book book = new Book
             {
                 Name = name,
-                Owner = user
+                OwnerId = user.Id
             };
 
             Console.WriteLine(bookLogic.AddBook(book)
