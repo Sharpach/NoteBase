@@ -32,7 +32,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public List<Book> GetByUser(User user)
         {
-            return _dbSet.Where(x => x.Owner.Id == user.Id)
+            return _dbSet.Where(x => x.OwnerId == user.Id)
                          .ToList();
         }
 
