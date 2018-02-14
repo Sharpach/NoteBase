@@ -168,7 +168,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (book.Owner != userLogic.ActiveUser)
+            if (book.Owner.Id != userLogic.ActiveUser.Id)
             {
                 Console.WriteLine("Книга не принадлежит вам.");
                 return;
