@@ -22,6 +22,10 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool AddUser(User user)
         {
+            if(_dbSet.Contains(user))
+            {
+                return false;
+            }
             _dbSet.Add(user);
             _context.SaveChanges();
             return true;

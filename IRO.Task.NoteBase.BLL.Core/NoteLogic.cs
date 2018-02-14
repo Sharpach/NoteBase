@@ -20,6 +20,10 @@ namespace IRO.Task.NoteBase.BLL.Core
         }
         public bool AddNote(Note note)
         {
+            if (_dbSet.Contains(note))
+            {
+                return false;
+            }
             _dbSet.Add(note);
             _context.SaveChanges();
             return true;
