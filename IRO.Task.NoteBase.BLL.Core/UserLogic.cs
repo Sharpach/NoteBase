@@ -22,7 +22,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool AddUser(User user)
         {
-            if(_dbSet.Contains(user))
+            if(_dbSet.Any(x => x.Id == user.Id))
             {
                 return false;
             }

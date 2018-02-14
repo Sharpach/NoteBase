@@ -21,7 +21,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool AddBook(Book book)
         {
-            if (_dbSet.Contains(book))
+            if (_dbSet.Any(x => x.Id == book.Id))
             {
                 return false;
             }
