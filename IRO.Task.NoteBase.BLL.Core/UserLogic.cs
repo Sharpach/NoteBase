@@ -31,9 +31,20 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
+        public bool DeleteUser(int userId)
+        {
+            User record = GetById(userId);
+            if (record == null)
+                return false;
+            var entry = _context.Entry(record);
+            entry.State = EntityState.Deleted;
+            _context.SaveChanges();
+            ActiveUser = null;
+            return true;
+        }
         public bool Login(int userId)
         {
-            User loggedUser = _dbSet.First(x => x.Id == userId);
+            User loggedUser = _dbSet.FirstOrDefault(x => x.Id == userId);
             if(loggedUser == null)
                 return false;
             ActiveUser = loggedUser;

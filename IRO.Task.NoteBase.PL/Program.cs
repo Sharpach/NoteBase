@@ -56,6 +56,16 @@ namespace IRO.Task.NoteBase.PL
                             Books(bookLogic, userLogic);
                             break;
                         }
+                    case "deleteuser":
+                        {
+                            DeleteUser(userLogic);
+                            break;
+                        }
+                    case "deletebook":
+                        {
+                            DeleteBook(bookLogic, userLogic);
+                            break;
+                        }
                     case "commands":
                     case "help":
                         {
@@ -274,6 +284,61 @@ namespace IRO.Task.NoteBase.PL
             {
                 Console.WriteLine($"id:{book.Id}\tname:{book.Name}");
             }
+        }
+
+        private static void DeleteBook(IBookLogic bookLogic, IUserLogic userLogic)
+        {
+            if (userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Для удаления книги вы должны быть авторизованы!");
+                return;
+            }
+
+            Console.WriteLine("Введите Id книги: ");
+            if (!int.TryParse(Console.ReadLine(), out int bookId))
+            {
+                Console.WriteLine("Id книги некорректно!");
+                return;
+            }
+
+            Book book = bookLogic.GetById(bookId);
+            if (book == null)
+            {
+                Console.WriteLine("Книга не найдена!");
+                return;
+            }
+
+            if (book.OwnerId != userLogic.ActiveUser.Id)
+            {
+                Console.WriteLine("Книга не принадлежит вам.");
+                return;
+            }
+
+            User user = userLogic.GetById(userLogic.ActiveUser.Id);
+
+            Console.WriteLine(bookLogic.DeleteBook(bookId)
+                ? "Книга успешно удалена."
+                : "Во время удаления книги произошла ошибка!");
+        }
+
+        private static void DeleteUser(IUserLogic userLogic)
+        {
+            if (userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Для удаления учётной записи вы должны быть авторизованы!");
+                return;
+            }
+            Console.WriteLine("Вы уверены, что хотите удалить свою учётную запись?");
+            char response = Console.ReadLine().ToLower()[0]; 
+            if (response == 'y' || response == 'д')
+            {
+                Console.WriteLine(userLogic.DeleteUser(userLogic.ActiveUser.Id)
+                ? "Вы удалили свою учётную запись."
+                : "Во время удаления вашей учётной записи произошла ошибка!");
+            }
+            else
+                return;
+            
         }
     }
 }

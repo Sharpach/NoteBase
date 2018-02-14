@@ -29,6 +29,17 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
+        public bool DeleteNote(int noteId)
+        {
+            Note record = GetById(noteId);
+            if (record == null)
+                return false;
+            var entry = _context.Entry(record);
+            entry.State = EntityState.Deleted;
+            _context.SaveChanges();
+            return true;
+        }
+
         public List<Note> GetAll() => _dbSet.ToList();
         public List<Note> GetByBook(Book book) => _dbSet.Where(x => x.ParentBookId == book.Id).ToList();
         public Note GetById(int noteId) => _dbSet.FirstOrDefault(x => x.Id == noteId);

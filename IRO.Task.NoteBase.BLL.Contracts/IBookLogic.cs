@@ -6,6 +6,7 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     public interface IBookLogic
     {
         bool AddBook(Book book);
+        bool DeleteBook(int bookId);
         List<Book> GetByUser(User user);
         Book GetById(int bookId);
     }
