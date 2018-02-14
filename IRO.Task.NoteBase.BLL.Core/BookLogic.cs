@@ -4,7 +4,6 @@ using IRO.Task.NoteBase.Entities;
 using IRO.Task.NoteBase.DAL.EF;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
@@ -27,8 +26,13 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<Book> GetAll() => _dbSet.ToList();
-        public List<Book> GetByUser(User user) => _dbSet.Where(x => x.Owner == user).ToList();
+        public List<Book> GetByUser(User user)
+        {
+            return _dbSet.Where(x => x.Owner != null)
+                         .Where(x => x.Owner == user)
+                         .ToList();
+        }
+
         public Book GetById(int bookId) => _dbSet.FirstOrDefault(x => x.Id == bookId);
     }
 }

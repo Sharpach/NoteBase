@@ -38,6 +38,6 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public User GetById(int userId) => _dbSet.FirstOrDefault(x => x.Id == userId);
 
-        public List<User> GetAll() => _context.GetAll<User>();
+        public List<User> GetAll() => _dbSet.ToList();
     }
 }
