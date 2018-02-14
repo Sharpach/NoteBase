@@ -21,6 +21,10 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool AddBook(Book book)
         {
+            if (_dbSet.Contains(book))
+            {
+                return false;
+            }
             _dbSet.Add(book);
             _context.SaveChanges();
             return true;
