@@ -28,8 +28,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public List<Book> GetByUser(User user)
         {
-            return _dbSet.Where(x => x.Owner != null)
-                         .Where(x => x.Owner == user)
+            return _dbSet.Where(x => x.Owner.Id == user.Id)
                          .ToList();
         }
 

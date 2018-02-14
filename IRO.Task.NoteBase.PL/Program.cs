@@ -189,12 +189,13 @@ namespace IRO.Task.NoteBase.PL
         {
             if (userLogic.ActiveUser == null)
             {
-                Console.WriteLine("Перед просмотра списка записок вы должны быть авторизованы!");
+                Console.WriteLine("Перед просмотром списка записок вы должны быть авторизованы!");
                 return;
             }
 
             Console.Write("Введите Id книги, записки из которой хотите узнать: ");
-            if (!int.TryParse(Console.ReadLine(), out int bookId))
+            string _StringBookId = Console.ReadLine();
+            if (!int.TryParse(_StringBookId, out int bookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
@@ -207,7 +208,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (book.Owner != userLogic.ActiveUser)
+            if (book.Owner.Id != userLogic.ActiveUser.Id)
             {
                 Console.WriteLine("Книга не принадлежит вам.");
                 return;
@@ -234,7 +235,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.Write("Введите айди книги: ");
+            Console.Write("Введите имя книги: ");
             string name = Console.ReadLine();
             if (name == string.Empty)
             {
