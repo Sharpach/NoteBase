@@ -11,8 +11,9 @@ namespace IRO.Task.NoteBase.PL
         private static void Main(string[] args)
         {
             IUserLogic userLogic = new UserLogic();
-            INoteLogic noteLogic = new NoteLogic();
-            IBookLogic bookLogic = new BookLogic();
+            IBookLogic bookLogic = new BookLogic(userLogic.GetAll());
+            INoteLogic noteLogic = new NoteLogic(noteLogic.GetAll());
+            
             string input;
             DisplayCommands();
             do

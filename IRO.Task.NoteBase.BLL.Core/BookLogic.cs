@@ -12,9 +12,11 @@ namespace IRO.Task.NoteBase.BLL.Core
         //TODO: intefraces EF
         private readonly MainContext _context;
         private readonly DbSet<Book> _dbSet;
+        private List<User> _userList;
 
-        public BookLogic()
+        public BookLogic(List<User> userLogic)
         {
+            _userList = userLogic;
             _context = new MainContext();
             _dbSet = _context.Books;
         }
@@ -35,6 +37,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             Book record = GetById(bookId);
             if (record == null)
                 return false;
+
             var entry = _context.Entry(record);
             entry.State = EntityState.Deleted;
             _context.SaveChanges();
