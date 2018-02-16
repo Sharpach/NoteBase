@@ -31,7 +31,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool DeleteNote(int noteId)
         {
-            Note record = GetById(noteId);
+            var record = GetById(noteId);
             if (record == null)
                 return false;
             var entry = _context.Entry(record);

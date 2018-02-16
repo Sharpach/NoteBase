@@ -34,7 +34,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool DeleteBook(int bookId)
         {
-            Book record = GetById(bookId);
+            var record = GetById(bookId);
             if (record == null)
                 return false;
 

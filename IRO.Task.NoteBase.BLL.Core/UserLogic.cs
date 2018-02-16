@@ -33,9 +33,10 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public bool DeleteUser(int userId)
         {
-            User record = GetById(userId);
+            var record = GetById(userId);
             if (record == null)
                 return false;
+
             var entry = _context.Entry(record);
             entry.State = EntityState.Deleted;
             _context.SaveChanges();
@@ -44,7 +45,7 @@ namespace IRO.Task.NoteBase.BLL.Core
         }
         public bool Login(int userId)
         {
-            User loggedUser = _dbSet.FirstOrDefault(x => x.Id == userId);
+            var loggedUser = _dbSet.FirstOrDefault(x => x.Id == userId);
             if(loggedUser == null)
                 return false;
             ActiveUser = loggedUser;

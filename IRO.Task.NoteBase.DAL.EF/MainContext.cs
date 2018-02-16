@@ -1,8 +1,5 @@
-﻿using IRO.Task.NoteBase.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
+using IRO.Task.NoteBase.Entities;
 
 namespace IRO.Task.NoteBase.DAL.EF
 {

@@ -12,7 +12,7 @@ namespace IRO.Task.NoteBase.PL
         {
             IUserLogic userLogic = new UserLogic();
             IBookLogic bookLogic = new BookLogic(userLogic.GetAll());
-            INoteLogic noteLogic = new NoteLogic(noteLogic.GetAll());
+            INoteLogic noteLogic = new NoteLogic(/*сюда добавить буклогику*/);
             
             string input;
             DisplayCommands();
@@ -123,13 +123,13 @@ namespace IRO.Task.NoteBase.PL
 
         private static void List(IUserLogic userLogic)
         {
-            List<User> users = userLogic.GetAll();
+            var users = userLogic.GetAll();
             if (users.Count < 1)
             {
                 Console.WriteLine("Пользователей нет!");
                 return;
             }
-            foreach (User user in users)
+            foreach (var user in users)
             {
                 Console.WriteLine($"id:{user.Id}\tname:{user.Name}");
             }
@@ -172,7 +172,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Book book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -205,14 +205,14 @@ namespace IRO.Task.NoteBase.PL
             }
 
             Console.Write("Введите Id книги, записки из которой хотите узнать: ");
-            string _StringBookId = Console.ReadLine();
-            if (!int.TryParse(_StringBookId, out int bookId))
+            string stringBookId = Console.ReadLine();
+            if (!int.TryParse(stringBookId, out int bookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            Book book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -225,14 +225,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            List<Note> notes = noteLogic.GetByBook(book);
+            var notes = noteLogic.GetByBook(book);
             if (notes.Count < 1)
             {
                 Console.WriteLine("Записок нет!");
                 return;
             }
 
-            foreach(Note note in notes)
+            foreach(var note in notes)
             {
                 Console.WriteLine($"id:{note.Id}\tname:{note.Text}");
             }
@@ -254,7 +254,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            User user = userLogic.GetById(userLogic.ActiveUser.Id);
+            var user = userLogic.GetById(userLogic.ActiveUser.Id);
             Book book = new Book
             {
                 Name = name,
@@ -274,14 +274,14 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            List<Book> books = bookLogic.GetByUser(userLogic.ActiveUser);
+            var books = bookLogic.GetByUser(userLogic.ActiveUser);
             if (books.Count < 1)
             {
                 Console.WriteLine("Книг нет!");
                 return;
             }
 
-            foreach (Book book in books)
+            foreach (var book in books)
             {
                 Console.WriteLine($"id:{book.Id}\tname:{book.Name}");
             }
@@ -302,7 +302,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Book book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(bookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -314,8 +314,6 @@ namespace IRO.Task.NoteBase.PL
                 Console.WriteLine("Книга не принадлежит вам.");
                 return;
             }
-
-            User user = userLogic.GetById(userLogic.ActiveUser.Id);
 
             Console.WriteLine(bookLogic.DeleteBook(bookId)
                 ? "Книга успешно удалена."
@@ -330,16 +328,13 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
             Console.WriteLine("Вы уверены, что хотите удалить свою учётную запись?");
-            char response = Console.ReadLine().ToLower()[0]; 
+            var response = Console.ReadLine()?.ToLower()[0]; 
             if (response == 'y' || response == 'д')
             {
                 Console.WriteLine(userLogic.DeleteUser(userLogic.ActiveUser.Id)
                 ? "Вы удалили свою учётную запись."
                 : "Во время удаления вашей учётной записи произошла ошибка!");
             }
-            else
-                return;
-            
         }
     }
 }
