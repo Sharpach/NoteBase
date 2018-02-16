@@ -107,7 +107,8 @@ namespace IRO.Task.NoteBase.PL
                      "ShowAllNotes\t- вывести все записки из книги(Нужна авторизация)\n" +
                      "Books\t\t- вывести Id всех книг(Нужна авторизация)\n" +
                      "AddBook\t\t- добавить новую книгу (Нужна авторизация)\n" +
-                     "DeleteBook\t- удалить книгу(Нужна авторизация)");
+                     "DeleteBook\t- удалить книгу(Нужна авторизация)\n" +
+                     "Quit\t\t- выйти из приложения.");
         }
 
         private static void AddUser(IUserLogic userLogic)
