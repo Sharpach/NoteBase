@@ -67,6 +67,11 @@ namespace IRO.Task.NoteBase.PL
                             DeleteBook(bookLogic, userLogic);
                             break;
                         }
+                    case "deletenote":
+                        {
+                            DeleteNote(bookLogic, noteLogic, userLogic);
+                            break;
+                        }
                     case "commands":
                     case "help":
                         {
@@ -98,9 +103,11 @@ namespace IRO.Task.NoteBase.PL
                      "Login\t\t- вход под пользователем из списка\n" +
                      "List\t\t- вывести имена всех пользователей\n" +
                      "AddNote\t\t- добавить записку в книгу(Нужна авторизация)\n" +
+                     "DeleteNote\t- удалить записку из книги(Нужна авторизация)\n" +
                      "ShowAllNotes\t- вывести все записки из книги(Нужна авторизация)\n" +
                      "Books\t\t- вывести Id всех книг(Нужна авторизация)\n" +
-                     "AddBook\t\t- добавить новую книгу (Нужна авторизация)\n");
+                     "AddBook\t\t- добавить новую книгу (Нужна авторизация)\n" +
+                     "DeleteBook\t- удалить книгу(Нужна авторизация)");
         }
 
         private static void AddUser(IUserLogic userLogic)
@@ -165,7 +172,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine("Введите Id книги: ");
+            Console.Write("Введите Id книги: ");
             if (!int.TryParse(Console.ReadLine(), out int bookId))
             {
                 Console.WriteLine("Id книги некорректно!");
@@ -236,6 +243,40 @@ namespace IRO.Task.NoteBase.PL
             {
                 Console.WriteLine($"id:{note.Id}\tname:{note.Text}");
             }
+        }
+
+        private static void DeleteNote(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic)
+        {
+            if (userLogic.ActiveUser == null)
+            {
+                Console.WriteLine("Для удаления записки вы должны быть авторизованы!");
+                return;
+            }
+
+            Console.Write("Введите Id записки, которую хотите удалить: ");
+            if (!int.TryParse(Console.ReadLine(), out int noteId))
+            {
+                Console.WriteLine("Id записки некорректно!");
+                return;
+            }
+
+            var note = noteLogic.GetById(noteId);
+            if (note == null)
+            {
+                Console.WriteLine("Записка не найдена!");
+                return;
+            }
+
+            var book = bookLogic.GetById(note.ParentBookId);
+            if (book.OwnerId != userLogic.ActiveUser.Id)
+            {
+                Console.WriteLine("Записка не принадлежит вам.");
+                return;
+            }
+
+            Console.WriteLine(noteLogic.DeleteNote(noteId)
+                ? "Записка успешно удалена."
+                : "Во время удаления записки произошла ошибка!");
         }
 
         private static void AddBook(IBookLogic bookLogic, IUserLogic userLogic)
