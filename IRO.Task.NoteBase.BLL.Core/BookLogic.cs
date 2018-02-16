@@ -12,13 +12,20 @@ namespace IRO.Task.NoteBase.BLL.Core
         //TODO: intefraces EF
         private readonly MainContext _context;
         private readonly DbSet<Book> _dbSet;
-        private List<User> _userList;
 
-        public BookLogic(List<User> userLogic)
+        public BookLogic(List<User> userList)
         {
-            _userList = userLogic;
             _context = new MainContext();
             _dbSet = _context.Books;
+            var __booksList = new List<Book>();
+            foreach(var book in _dbSet)
+            {
+                if (userList.Any((x) => x.Id == book.OwnerId)) continue;
+                __booksList.Add(book);
+            }
+            foreach (var book in __booksList)
+                DeleteBook(book.Id);
+            __booksList = null;
         }
 
         public bool AddBook(Book book)
@@ -51,5 +58,6 @@ namespace IRO.Task.NoteBase.BLL.Core
         }
 
         public Book GetById(int bookId) => _dbSet.FirstOrDefault(x => x.Id == bookId);
+        public List<Book> GetAll() => _dbSet.ToList();
     }
 }

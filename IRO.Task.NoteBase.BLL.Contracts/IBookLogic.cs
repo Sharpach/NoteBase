@@ -9,5 +9,6 @@ namespace IRO.Task.NoteBase.BLL.Contracts
         bool DeleteBook(int bookId);
         List<Book> GetByUser(User user);
         Book GetById(int bookId);
+        List<Book> GetAll();
     }
 }

@@ -13,10 +13,19 @@ namespace IRO.Task.NoteBase.BLL.Core
         private readonly MainContext _context;
         private readonly DbSet<Note> _dbSet;
 
-        public NoteLogic()
+        public NoteLogic(List<Book> bookList)
         {
             _context = new MainContext();
             _dbSet = _context.Notes;
+            var __notesList = new List<Note>();
+            foreach (var note in _dbSet)
+            {
+                if (bookList.Any((x) => x.Id == note.ParentBookId)) continue;
+                __notesList.Add(note);
+            }
+            foreach (var note in __notesList)
+                DeleteNote(note.Id);
+            __notesList = null;
         }
         public bool AddNote(Note note)
         {

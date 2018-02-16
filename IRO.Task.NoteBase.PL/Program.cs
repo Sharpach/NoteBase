@@ -12,7 +12,7 @@ namespace IRO.Task.NoteBase.PL
         {
             IUserLogic userLogic = new UserLogic();
             IBookLogic bookLogic = new BookLogic(userLogic.GetAll());
-            INoteLogic noteLogic = new NoteLogic(/*сюда добавить буклогику*/);
+            INoteLogic noteLogic = new NoteLogic(bookLogic.GetAll());
             
             string input;
             DisplayCommands();
