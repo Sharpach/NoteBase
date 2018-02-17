@@ -2,8 +2,8 @@
 {
     public class Note
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Text { get; set; }
-        public virtual int ParentBookId { get; set; }
+        public virtual long ParentBookId { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class Book
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
-        public virtual int OwnerId { get; set; }
+        public virtual long OwnerId { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public bool DeleteUser(int userId)
+        public bool DeleteUser(long userId)
         {
             var record = GetById(userId);
             if (record == null)
@@ -43,7 +43,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             ActiveUser = null;
             return true;
         }
-        public bool Login(int userId)
+        public bool Login(long userId)
         {
             var loggedUser = _dbSet.FirstOrDefault(x => x.Id == userId);
             if(loggedUser == null)
@@ -52,7 +52,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public User GetById(int userId) => _dbSet.FirstOrDefault(x => x.Id == userId);
+        public User GetById(long userId) => _dbSet.FirstOrDefault(x => x.Id == userId);
 
         public List<User> GetAll() => _dbSet.ToList();
     }

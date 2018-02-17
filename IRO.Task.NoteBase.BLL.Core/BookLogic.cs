@@ -39,7 +39,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public bool DeleteBook(int bookId)
+        public bool DeleteBook(long bookId)
         {
             var record = GetById(bookId);
             if (record == null)
@@ -57,7 +57,7 @@ namespace IRO.Task.NoteBase.BLL.Core
                          .ToList();
         }
 
-        public Book GetById(int bookId) => _dbSet.FirstOrDefault(x => x.Id == bookId);
+        public Book GetById(long bookId) => _dbSet.FirstOrDefault(x => x.Id == bookId);
         public List<Book> GetAll() => _dbSet.ToList();
     }
 }

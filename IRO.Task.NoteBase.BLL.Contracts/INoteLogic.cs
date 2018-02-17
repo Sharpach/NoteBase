@@ -6,9 +6,9 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     public interface INoteLogic
     {
         bool AddNote(Note note);
-        bool DeleteNote(int noteId);
+        bool DeleteNote(long noteId);
         List<Note> GetAll();
         List<Note> GetByBook(Book book);
-        Note GetById(int noteId);
+        Note GetById(long noteId);
     }
 }

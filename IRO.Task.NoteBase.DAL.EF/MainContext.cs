@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using IRO.Task.NoteBase.Entities;
+using System;
 
 namespace IRO.Task.NoteBase.DAL.EF
 {
