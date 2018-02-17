@@ -14,47 +14,47 @@ namespace IRO.Task.NoteBase.PL
             IBookLogic bookLogic = new BookLogic(userLogic.GetAll());
             INoteLogic noteLogic = new NoteLogic(bookLogic.GetAll());
             
-            string input;
+            string[] input;
             DisplayCommands();
             do
             {
                 Console.Write(">");
-                input = Console.ReadLine()?.ToLower();
-                switch (input)
+                input = CommandLineParser.Parse(Console.ReadLine()?.ToLower());
+                switch (input[0])
                 {
                     case "adduser":
                         {
-                            AddUser(userLogic);
+                            AddUser(userLogic, input[1]);
                             break;
                         }
                     case "login":
                         {
-                            Login(userLogic);
+                            Login(userLogic, input[1]);
                             break;
                         }
-                    case "list":
+                    case "userslist":
                         {
-                            List(userLogic);
+                            UsersList(userLogic);
                             break;
                         }
                     case "addnote":
                         {
-                            AddNote(noteLogic, bookLogic, userLogic);
+                            AddNote(noteLogic, bookLogic, userLogic, input[2], input[1]);
                             break;
                         }
                     case "showallnotes":
                         {
-                            ShowAllNotes(bookLogic, noteLogic, userLogic);
+                            NotesList(bookLogic, noteLogic, userLogic, input[1]);
                             break;
                         }
                     case "addbook":
                         {
-                            AddBook(bookLogic, userLogic);
+                            AddBook(bookLogic, userLogic, input[1]);
                             break;
                         }
                     case "books":
                         {
-                            Books(bookLogic, userLogic);
+                            BooksList(bookLogic, userLogic);
                             break;
                         }
                     case "deleteuser":
@@ -64,12 +64,12 @@ namespace IRO.Task.NoteBase.PL
                         }
                     case "deletebook":
                         {
-                            DeleteBook(bookLogic, userLogic);
+                            DeleteBook(bookLogic, userLogic, input[1]);
                             break;
                         }
                     case "deletenote":
                         {
-                            DeleteNote(bookLogic, noteLogic, userLogic);
+                            DeleteNote(bookLogic, noteLogic, userLogic, input[1]);
                             break;
                         }
                     case "commands":
@@ -94,27 +94,25 @@ namespace IRO.Task.NoteBase.PL
                         }
                 }
             }
-            while (input != "quit");
+            while (input[0] != "quit");
         }
 
         private static void DisplayCommands()
         {
-            Console.WriteLine("AddUser\t\t- добавление пользователя в программу\n" +
-                     "Login\t\t- вход под пользователем из списка\n" +
-                     "List\t\t- вывести имена всех пользователей\n" +
-                     "AddNote\t\t- добавить записку в книгу(Нужна авторизация)\n" +
-                     "DeleteNote\t- удалить записку из книги(Нужна авторизация)\n" +
-                     "ShowAllNotes\t- вывести все записки из книги(Нужна авторизация)\n" +
-                     "Books\t\t- вывести Id всех книг(Нужна авторизация)\n" +
-                     "AddBook\t\t- добавить новую книгу (Нужна авторизация)\n" +
-                     "DeleteBook\t- удалить книгу(Нужна авторизация)\n" +
-                     "Quit\t\t- выйти из приложения.");
+            Console.WriteLine("addUser [\"userName\"]\t\t- добавление пользователя в программу\n" +
+                              "login [userId]\t\t\t- вход под пользователем из списка\n" +
+                              "userslist\t\t\t- вывести имена всех пользователей\n" +
+                              "addnote [bookId] [\"noteText\"]\t- добавить записку в книгу(Нужна авторизация)\n" +
+                              "deleteNote [noteId]\t\t- удалить записку из книги(Нужна авторизация)\n" +
+                              "notesList\t\t\t- вывести все записки из книги(Нужна авторизация)\n" +
+                              "addBook [\"bookName\"]\t\t- добавить новую книгу (Нужна авторизация)\n" +
+                              "deleteBook [bookId]\t\t- удалить книгу(Нужна авторизация)\n" +
+                              "booksList\t\t\t- вывести Id всех книг(Нужна авторизация)\n" +
+                              "quit\t\t\t\t- выйти из приложения.");
         }
 
-        private static void AddUser(IUserLogic userLogic)
+        private static void AddUser(IUserLogic userLogic, string name)
         {
-            Console.Write("Введите имя пользователя: ");
-            string name = Console.ReadLine();
             if (name == string.Empty)
             {
                 Console.WriteLine("Имя некорректно!");
@@ -129,7 +127,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Во время добавления пользователя произошла ошибка!");
         }
 
-        private static void List(IUserLogic userLogic)
+        private static void UsersList(IUserLogic userLogic)
         {
             var users = userLogic.GetAll();
             if (users.Count < 1)
@@ -143,10 +141,9 @@ namespace IRO.Task.NoteBase.PL
             }
         }
 
-        private static void Login(IUserLogic userLogic)
+        private static void Login(IUserLogic userLogic, string userId)
         {
-            Console.Write("Введите айди пользователя для входа: ");
-            if (!long.TryParse(Console.ReadLine(), out long id))
+            if (!long.TryParse(userId, out long id))
             {
                 Console.WriteLine("Id пользователя некорректно!");
                 return;
@@ -157,7 +154,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Пользователь не найден!");
         }
 
-        private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic)
+        private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic, string noteText, string bookId)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -165,22 +162,19 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.Write("Введите текст записки: ");
-            string text = Console.ReadLine();
-            if (text == string.Empty)
+            if (noteText == string.Empty)
             {
                 Console.WriteLine("Текст некорректен!");
                 return;
             }
 
-            Console.Write("Введите Id книги: ");
-            if (!long.TryParse(Console.ReadLine(), out long bookId))
+            if (!long.TryParse(bookId, out long BookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(BookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -195,7 +189,7 @@ namespace IRO.Task.NoteBase.PL
 
             Note note = new Note
             {
-                Text = text,
+                Text = noteText,
                 ParentBookId = book.Id
             };
 
@@ -204,7 +198,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Во время добавления записки произошла ошибка!");
         }
 
-        private static void ShowAllNotes(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic)
+        private static void NotesList(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic, string bookId)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -212,15 +206,13 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.Write("Введите Id книги, записки из которой хотите узнать: ");
-            string stringBookId = Console.ReadLine();
-            if (!long.TryParse(stringBookId, out long bookId))
+            if (!long.TryParse(bookId, out long longBookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(longBookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -246,22 +238,20 @@ namespace IRO.Task.NoteBase.PL
             }
         }
 
-        private static void DeleteNote(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic)
+        private static void DeleteNote(IBookLogic bookLogic, INoteLogic noteLogic, IUserLogic userLogic, string noteId)
         {
             if (userLogic.ActiveUser == null)
             {
                 Console.WriteLine("Для удаления записки вы должны быть авторизованы!");
                 return;
             }
-
-            Console.Write("Введите Id записки, которую хотите удалить: ");
-            if (!int.TryParse(Console.ReadLine(), out int noteId))
+            if (!int.TryParse(noteId, out int NoteId))
             {
                 Console.WriteLine("Id записки некорректно!");
                 return;
             }
 
-            var note = noteLogic.GetById(noteId);
+            var note = noteLogic.GetById(NoteId);
             if (note == null)
             {
                 Console.WriteLine("Записка не найдена!");
@@ -275,12 +265,12 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine(noteLogic.DeleteNote(noteId)
+            Console.WriteLine(noteLogic.DeleteNote(NoteId)
                 ? "Записка успешно удалена."
                 : "Во время удаления записки произошла ошибка!");
         }
 
-        private static void AddBook(IBookLogic bookLogic, IUserLogic userLogic)
+        private static void AddBook(IBookLogic bookLogic, IUserLogic userLogic, string bookName)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -288,9 +278,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.Write("Введите имя книги: ");
-            string name = Console.ReadLine();
-            if (name == string.Empty)
+            if (bookName == string.Empty)
             {
                 Console.WriteLine("Название некорректно!");
                 return;
@@ -299,7 +287,7 @@ namespace IRO.Task.NoteBase.PL
             var user = userLogic.GetById(userLogic.ActiveUser.Id);
             Book book = new Book
             {
-                Name = name,
+                Name = bookName,
                 OwnerId = user.Id
             };
 
@@ -308,7 +296,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Во время добавления книги произошла ошибка!");
         }
 
-        private static void Books(IBookLogic bookLogic, IUserLogic userLogic)
+        private static void BooksList(IBookLogic bookLogic, IUserLogic userLogic)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -329,7 +317,7 @@ namespace IRO.Task.NoteBase.PL
             }
         }
 
-        private static void DeleteBook(IBookLogic bookLogic, IUserLogic userLogic)
+        private static void DeleteBook(IBookLogic bookLogic, IUserLogic userLogic, string bookId)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -337,14 +325,13 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine("Введите Id книги: ");
-            if (!int.TryParse(Console.ReadLine(), out int bookId))
+            if (!int.TryParse(bookId, out int BookId))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetById(bookId);
+            var book = bookLogic.GetById(BookId);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -357,7 +344,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine(bookLogic.DeleteBook(bookId)
+            Console.WriteLine(bookLogic.DeleteBook(BookId)
                 ? "Книга успешно удалена."
                 : "Во время удаления книги произошла ошибка!");
         }
