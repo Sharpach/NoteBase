@@ -19,7 +19,7 @@ namespace IRO.Task.NoteBase.PL
             do
             {
                 Console.Write(">");
-                input = CommandLineParser.Parse(Console.ReadLine()?.ToLower());
+                input = CommandLineParser.Parse(Console.ReadLine()?.ToLower(), 3);
                 switch (input[0])
                 {
                     case "adduser":
@@ -39,10 +39,10 @@ namespace IRO.Task.NoteBase.PL
                         }
                     case "addnote":
                         {
-                            AddNote(noteLogic, bookLogic, userLogic, input[2], input[1]);
+                            AddNote(noteLogic, bookLogic, userLogic, input[1], input[2]);
                             break;
                         }
-                    case "showallnotes":
+                    case "noteslist":
                         {
                             NotesList(bookLogic, noteLogic, userLogic, input[1]);
                             break;
@@ -52,7 +52,7 @@ namespace IRO.Task.NoteBase.PL
                             AddBook(bookLogic, userLogic, input[1]);
                             break;
                         }
-                    case "books":
+                    case "bookslist":
                         {
                             BooksList(bookLogic, userLogic);
                             break;
@@ -102,6 +102,7 @@ namespace IRO.Task.NoteBase.PL
             Console.WriteLine("addUser [\"userName\"]\t\t- добавление пользователя в программу\n" +
                               "login [userId]\t\t\t- вход под пользователем из списка\n" +
                               "userslist\t\t\t- вывести имена всех пользователей\n" +
+                              "deleteuser\t\t\t- удалить свою учётную запись(Нужна авторизация)\n" +
                               "addnote [bookId] [\"noteText\"]\t- добавить записку в книгу(Нужна авторизация)\n" +
                               "deleteNote [noteId]\t\t- удалить записку из книги(Нужна авторизация)\n" +
                               "notesList\t\t\t- вывести все записки из книги(Нужна авторизация)\n" +
@@ -113,7 +114,7 @@ namespace IRO.Task.NoteBase.PL
 
         private static void AddUser(IUserLogic userLogic, string name)
         {
-            if (name == string.Empty)
+            if (String.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Имя некорректно!");
                 return;
@@ -154,7 +155,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Пользователь не найден!");
         }
 
-        private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic, string noteText, string bookId)
+        private static void AddNote(INoteLogic noteLogic, IBookLogic bookLogic, IUserLogic userLogic, string bookId, string noteText)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -162,7 +163,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (noteText == string.Empty)
+            if (String.IsNullOrWhiteSpace(noteText))
             {
                 Console.WriteLine("Текст некорректен!");
                 return;
@@ -278,7 +279,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (bookName == string.Empty)
+            if (String.IsNullOrWhiteSpace(bookName))
             {
                 Console.WriteLine("Название некорректно!");
                 return;
