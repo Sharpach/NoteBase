@@ -10,7 +10,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IMainConext _context;
+        private readonly IMainContext _context;
         private readonly DbSet<User> _dbSet;
         public User ActiveUser { get; private set; }
 

@@ -10,7 +10,7 @@ namespace IRO.Task.NoteBase.BLL.Core
 {
     public class BookLogic : IBookLogic
     {
-        private readonly IMainConext _context;
+        private readonly IMainContext _context;
         private readonly DbSet<Book> _dbSet;
 
         public BookLogic(List<User> userList)
