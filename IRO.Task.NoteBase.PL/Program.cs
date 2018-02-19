@@ -1,8 +1,6 @@
 ﻿using System;
 using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.BLL.Core;
-using IRO.Task.NoteBase.Entities;
-using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.PL
 {
@@ -20,7 +18,7 @@ namespace IRO.Task.NoteBase.PL
             {
                 Console.Write(">");
                 input = CommandLineParser.Parse(Console.ReadLine(), 3);
-                switch (input[0].ToLower())
+                switch (input[0]?.ToLower())
                 {
                     case "adduser":
                         {
