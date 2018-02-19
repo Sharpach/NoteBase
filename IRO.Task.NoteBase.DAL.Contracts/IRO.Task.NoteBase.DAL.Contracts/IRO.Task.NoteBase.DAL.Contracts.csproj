@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6F6FE3D4-CC3E-4BAD-8212-EF137B777110}</ProjectGuid>
+    <ProjectGuid>{6222446A-3194-46FD-8024-A87B69433E04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IRO.Task.NoteBase.BLL.Core</RootNamespace>
-    <AssemblyName>IRO.Task.NoteBase.BLL.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>IRO.Task.NoteBase.DAL.Contracts</RootNamespace>
+    <AssemblyName>IRO.Task.NoteBase.DAL.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,25 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookLogic.cs" />
-    <Compile Include="NoteLogic.cs" />
-    <Compile Include="UserLogic.cs" />
+    <Compile Include="IMainContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IRO.Task.NoteBase.BLL.Contracts\IRO.Task.NoteBase.BLL.Contracts.csproj">
-      <Project>{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1}</Project>
-      <Name>IRO.Task.NoteBase.BLL.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IRO.Task.NoteBase.DAL.Contracts\IRO.Task.NoteBase.DAL.Contracts\IRO.Task.NoteBase.DAL.Contracts.csproj">
-      <Project>{6222446A-3194-46FD-8024-A87B69433E04}</Project>
-      <Name>IRO.Task.NoteBase.DAL.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IRO.Task.NoteBase.DAL.EF\IRO.Task.NoteBase.DAL.EF.csproj">
-      <Project>{ea15fb2f-cac1-4d36-9095-45742025583c}</Project>
-      <Name>IRO.Task.NoteBase.DAL.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
+    <ProjectReference Include="..\..\IRO.Tast.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj">
       <Project>{02716313-4C35-42DB-A96B-A159926A8C05}</Project>
       <Name>IRO.Task.NoteBase.Entities</Name>
     </ProjectReference>

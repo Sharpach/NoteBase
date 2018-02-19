@@ -4,13 +4,14 @@ using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.DAL.EF;
 using IRO.Task.NoteBase.Entities;
 using System.Linq;
+using IRO.Task.NoteBase.DAL.Contracts;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
     public class UserLogic : IUserLogic
     {
         //TODO: intefraces EF
-        private readonly MainContext _context;
+        private readonly IMainConext _context;
         private readonly DbSet<User> _dbSet;
         public User ActiveUser { get; private set; }
 

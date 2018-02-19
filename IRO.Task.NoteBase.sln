@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.PL.ConsoleApp", "IRO.Task.NoteBase.PL\IRO.Task.NoteBase.PL.ConsoleApp.csproj", "{25F2B756-142A-4DD2-A7DC-AA87C3A3D932}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{8E02CA0A-CDE1-45F2-92AE-4B9EE80266F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.DAL.EF", "IRO.Task.NoteBase.DAL.EF\IRO.Task.NoteBase.DAL.EF.csproj", "{EA15FB2F-CAC1-4D36-9095-45742025583C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRO.Task.NoteBase.DAL.Contracts", "IRO.Task.NoteBase.DAL.Contracts\IRO.Task.NoteBase.DAL.Contracts\IRO.Task.NoteBase.DAL.Contracts.csproj", "{6222446A-3194-46FD-8024-A87B69433E04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{EA15FB2F-CAC1-4D36-9095-45742025583C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA15FB2F-CAC1-4D36-9095-45742025583C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA15FB2F-CAC1-4D36-9095-45742025583C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6222446A-3194-46FD-8024-A87B69433E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6222446A-3194-46FD-8024-A87B69433E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6222446A-3194-46FD-8024-A87B69433E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6222446A-3194-46FD-8024-A87B69433E04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{7FB0777C-0E07-4309-B70F-5F7B5AA9A7C1} = {5D82E800-1243-4AA1-9B8A-925A0535F09E}
 		{6F6FE3D4-CC3E-4BAD-8212-EF137B777110} = {5D82E800-1243-4AA1-9B8A-925A0535F09E}
 		{EA15FB2F-CAC1-4D36-9095-45742025583C} = {ED0B509F-FF91-4D73-A678-B86C99546641}
+		{6222446A-3194-46FD-8024-A87B69433E04} = {ED0B509F-FF91-4D73-A678-B86C99546641}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97411702-F845-4A9B-84AA-B490FAE2C09E}
