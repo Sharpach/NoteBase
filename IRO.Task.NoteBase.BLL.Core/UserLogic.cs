@@ -43,6 +43,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             ActiveUser = null;
             return true;
         }
+
         public bool Login(long userId)
         {
             var loggedUser = _dbSet.FirstOrDefault(x => x.Id == userId);

@@ -8,7 +8,7 @@ namespace IRO.Task.NoteBase.PL
     {
         private static void AddUser(IUserLogic userLogic, string name)
         {
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Имя некорректно!");
                 return;
@@ -63,13 +63,13 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (!long.TryParse(bookId, out long BookId))
+            if (!long.TryParse(bookId, out long id))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetById(BookId);
+            var book = bookLogic.GetById(id);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -140,7 +140,7 @@ namespace IRO.Task.NoteBase.PL
                 Console.WriteLine("Для удаления записки вы должны быть авторизованы!");
                 return;
             }
-            if (!int.TryParse(noteId, out int NoteId))
+            if (!long.TryParse(noteId, out long NoteId))
             {
                 Console.WriteLine("Id записки некорректно!");
                 return;
@@ -173,7 +173,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (String.IsNullOrWhiteSpace(bookName))
+            if (string.IsNullOrWhiteSpace(bookName))
             {
                 Console.WriteLine("Название некорректно!");
                 return;
@@ -220,13 +220,13 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            if (!int.TryParse(bookId, out int BookId))
+            if (!long.TryParse(bookId, out long id))
             {
                 Console.WriteLine("Id книги некорректно!");
                 return;
             }
 
-            var book = bookLogic.GetById(BookId);
+            var book = bookLogic.GetById(id);
             if (book == null)
             {
                 Console.WriteLine("Книга не найдена!");
@@ -239,7 +239,7 @@ namespace IRO.Task.NoteBase.PL
                 return;
             }
 
-            Console.WriteLine(bookLogic.DeleteBook(BookId)
+            Console.WriteLine(bookLogic.DeleteBook(id)
                 ? "Книга успешно удалена."
                 : "Во время удаления книги произошла ошибка!");
         }
