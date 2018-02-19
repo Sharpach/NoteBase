@@ -10,7 +10,6 @@ namespace IRO.Task.NoteBase.BLL.Core
 {
     public class BookLogic : IBookLogic
     {
-        //TODO: intefraces EF
         private readonly IMainConext _context;
         private readonly DbSet<Book> _dbSet;
 
