@@ -10,5 +10,6 @@ namespace IRO.Task.NoteBase.BLL.Contracts
         List<Note> GetAll();
         List<Note> GetByBook(Book book);
         Note GetById(long noteId);
+        bool DeleteNotes(ICollection<Book> books);
     }
 }

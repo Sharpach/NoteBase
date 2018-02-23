@@ -244,7 +244,7 @@ namespace IRO.Task.NoteBase.PL
                 : "Во время удаления книги произошла ошибка!");
         }
 
-        private static void DeleteUser(IUserLogic userLogic)
+        private static void DeleteUser(IUserLogic userLogic, IBookLogic bookLogic, INoteLogic noteLogic)
         {
             if (userLogic.ActiveUser == null)
             {
@@ -253,12 +253,15 @@ namespace IRO.Task.NoteBase.PL
             }
             Console.WriteLine("Вы уверены, что хотите удалить свою учётную запись?");
             var response = Console.ReadLine()?.ToLower()[0];
-            if (response == 'y' || response == 'д')
-            {
-                Console.WriteLine(userLogic.DeleteUser(userLogic.ActiveUser.Id)
+            if (response != 'y' && response != 'д') return;
+
+            var user = userLogic.ActiveUser;
+            var removeBooks = bookLogic.GetByUser(user);
+            noteLogic.DeleteNotes(removeBooks);
+            bookLogic.DeleteAllBooksByUser(user);
+            Console.WriteLine(userLogic.DeleteUser(userLogic.ActiveUser.Id)
                 ? "Вы удалили свою учётную запись."
                 : "Во время удаления вашей учётной записи произошла ошибка!");
-            }
         }
     }
 }

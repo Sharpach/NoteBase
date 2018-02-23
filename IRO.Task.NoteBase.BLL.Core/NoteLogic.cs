@@ -13,11 +13,10 @@ namespace IRO.Task.NoteBase.BLL.Core
         private readonly IMainContext _context;
         private readonly DbSet<Note> _dbSet;
 
-        public NoteLogic(ICollection<Book> bookList)
+        public NoteLogic()
         {
             _context = new MainContext();
             _dbSet = _context.Notes;
-            DeleteNotes(bookList);
         }
 
         public bool AddNote(Note note)
@@ -48,13 +47,14 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public Note GetById(long noteId) => _dbSet.FirstOrDefault(x => x.Id == noteId);
 
-        private void DeleteNotes(ICollection<Book> bookList)
+        public bool DeleteNotes(ICollection<Book> bookList)
         {
             foreach (var note in _dbSet)
             {
                 if (bookList.Any((x) => x.Id == note.ParentBookId)) continue;
                 DeleteNote(note.Id);
             }
+            return true;
         }
     }
 }

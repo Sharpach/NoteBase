@@ -13,11 +13,10 @@ namespace IRO.Task.NoteBase.BLL.Core
         private readonly IMainContext _context;
         private readonly DbSet<Book> _dbSet;
 
-        public BookLogic(ICollection<User> userList)
+        public BookLogic()
         {
             _context = new MainContext();
             _dbSet = _context.Books;
-            DeleteAllBooks(userList);
         }
 
         public bool AddBook(Book book)
@@ -31,7 +30,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public bool DeleteBook(long bookId)
+        public bool DeleteBook(long bookId, bool save = true)
         {
             var record = GetById(bookId);
             if (record == null)
@@ -39,7 +38,8 @@ namespace IRO.Task.NoteBase.BLL.Core
 
             var entry = _context.Entry(record);
             entry.State = EntityState.Deleted;
-            _context.SaveChanges();
+            if(save)
+                _context.SaveChanges();
             return true;
         }
 
@@ -53,13 +53,20 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public List<Book> GetAll() => _dbSet.ToList();
 
-        private void DeleteAllBooks(ICollection<User> userList)
+        public bool DeleteAllBooksByUser(User user)
         {
-            foreach (var book in _dbSet)
+            var books = _dbSet.Where(x => x.OwnerId == user.Id);
+            foreach (var book in books)
             {
-                if (userList.Any(x => x.Id == book.OwnerId)) continue;
-                DeleteBook(book.Id);
+                DeleteBook(book.Id, false);
             }
+            SaveChanges();
+            return true;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }
