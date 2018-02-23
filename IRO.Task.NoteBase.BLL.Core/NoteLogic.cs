@@ -30,6 +30,16 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
+        public bool ChangeNote(long noteId, string newText)
+        {
+            Note note = GetById(noteId);
+            var entry = _context.Entry(note);
+            note.Text = newText;
+            entry.State = EntityState.Modified;
+            _context.SaveChanges();
+            return true;
+        }
+
         public bool DeleteNote(long noteId)
         {
             var record = GetById(noteId);
