@@ -30,7 +30,17 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public bool DeleteBook(long bookId, bool save = true)
+        public bool ChangeBook(long bookId, string newName)
+        {
+            Book book = GetById(bookId);
+            var entry = _context.Entry(book);
+            book.Name = newName;
+            entry.State = EntityState.Modified;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteBook(long bookId)
         {
             var record = GetById(bookId);
             if (record == null)
