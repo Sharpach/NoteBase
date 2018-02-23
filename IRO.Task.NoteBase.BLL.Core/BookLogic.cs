@@ -40,7 +40,7 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public bool DeleteBook(long bookId)
+        public bool DeleteBook(long bookId, bool save = true)
         {
             var record = GetById(bookId);
             if (record == null)

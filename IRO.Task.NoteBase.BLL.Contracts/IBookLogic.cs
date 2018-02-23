@@ -7,7 +7,7 @@ namespace IRO.Task.NoteBase.BLL.Contracts
     {
         bool AddBook(Book book);
         bool ChangeBook(long bookId, string newName);
-        bool DeleteBook(long bookId);
+        bool DeleteBook(long bookId, bool save = true);
         List<Book> GetByUser(User user);
         Book GetById(long bookId);
         List<Book> GetAll();

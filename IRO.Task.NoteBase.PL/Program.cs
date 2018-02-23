@@ -37,7 +37,7 @@ namespace IRO.Task.NoteBase.PL
                         }
                     case "deleteuser":
                         {
-                            DeleteUser(userLogic);
+                            DeleteUser(userLogic, bookLogic, noteLogic);
                             break;
                         }
                     case "addnote":
