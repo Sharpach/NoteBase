@@ -1,0 +1,10 @@
+﻿@using IRO.Task.NoteBase.PL.WebApp.Models
+
+<form asp-action="DeleteNote" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Удалить заметку" })
+
+    <div class="modal-body form-horizontal">
+        Вы уверены, что хотите удалить заметку "@Model"?
+    </div>
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Удалить" })
+</form>  

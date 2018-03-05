@@ -1,0 +1,21 @@
+﻿@model NoteViewModel
+
+<form asp-action="EditNote" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Изменить заметку" })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <input asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Text" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-6">
+                    <input asp-for="Text" class="form-control" />
+                </div>
+                <span asp-validation-for="Text"></span>
+            </div>
+            <input asp-for="ParentBookId" />
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+
+@Html.Partial("_ValidationScriptsPartial")

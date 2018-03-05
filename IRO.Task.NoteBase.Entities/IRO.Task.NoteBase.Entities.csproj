@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\IRO.Task.NoteBase.Entities\IRO.Task.NoteBase.Entities.csproj" />
-  </ItemGroup>
-
 </Project>
