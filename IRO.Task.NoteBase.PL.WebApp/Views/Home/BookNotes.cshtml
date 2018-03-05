@@ -1,0 +1,60 @@
+﻿@using IRO.Task.NoteBase.PL.WebApp.Models
+
+@model BookViewModel
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Список заметок @Model.Name</div>
+    <div class="panel-body">
+        <div class="btn-group" style="padding-bottom: 10px">
+            <a id="createNoteModal" data-toggle="modal" asp-action="AddNote" asp-route-bookId="@Model.Id" data-target="#modal-action-book" class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>  Создать
+            </a>
+        </div>
+        <div class="top-buffer"></div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Notes.First().Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Notes.First().Text)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Notes)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Text)</td>
+                        <td>
+                            <a id="editNoteModal" data-toggle="modal" asp-action="EditNote" asp-route-id="@item.Id" data-target="#modal-action-book"
+                               class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>  Изменить
+                            </a>
+                            <a id="deleteNoteModal" data-toggle="modal" asp-action="DeleteNote" asp-route-id="@item.Id" data-target="#modal-action-book"
+                               class="btn btn-danger">
+                                <i class="glyphicon glyphicon-trash"></i>  Удалить
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="btn-group">
+            <a id="returnToBooks" asp-action="Index" class="btn btn-primary">
+                <i class="glyphicon glyphicon-arrow-left"></i>  Вернуться к списку книг
+            </a>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-book", AreaLabeledId = "modal-action-book-label", Size = ModalSize.Large })
+
+@section scripts
+    {
+    <script src="~/js/home-index.js" asp-append-version="true"></script>
+}
+
+
+
+

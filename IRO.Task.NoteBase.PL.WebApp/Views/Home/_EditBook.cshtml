@@ -1,0 +1,21 @@
+﻿@model BookViewModel
+
+<form asp-action="EditBook" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Изменить книгу" })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <input asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-6">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name"></span>
+            </div>
+            <input asp-for="OwnerId" />
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+
+@Html.Partial("_ValidationScriptsPartial")

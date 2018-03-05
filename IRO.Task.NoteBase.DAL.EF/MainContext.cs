@@ -1,24 +1,36 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using IRO.Task.NoteBase.Entities;
 using IRO.Task.NoteBase.DAL.Contracts;
+using IRO.Task.NoteBase.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace IRO.Task.NoteBase.DAL.EF
 {
     public class MainContext : DbContext, IMainContext
-    {
-        public MainContext() : base("dbconnection")
+    {        
+        private string ConnectionString { get; set; }
+
+        public MainContext(string connectionString)
         {
-            //AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
-            //Database.Delete();
+            ConnectionString = connectionString;
         }
 
-        public DbSet<User> Users { get; set; }
+        //public MainContext(DbContextOptions<MainContext> options) : base(options)
+        //{
+        //}
+
         public DbSet<Book> Books { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         void IMainContext.SaveChanges() => base.SaveChanges();
 
-        DbEntityEntry IMainContext.Entry(object entity) => Entry(entity);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+        }
     }
 }

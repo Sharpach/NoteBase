@@ -1,0 +1,47 @@
+﻿@using IRO.Task.NoteBase.PL.WebApp.Models
+
+@model IEnumerable<UserViewModel>
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Список пользователей</div>
+    <div class="panel-body">
+        <div class="btn-group" style="padding-bottom: 10px">
+            <a id="createUserModal" data-toggle="modal" asp-action="AddUser" data-target="#modal-action-book" class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>  Создать
+            </a>
+        </div>
+        <div class="top-buffer"></div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>
+                            <a id="deleteUserModal" data-toggle="modal" asp-action="DeleteUser" asp-route-id="@item.Id" data-target="#modal-action-book"
+                               class="btn btn-danger">
+                                <i class="glyphicon glyphicon-trash"></i>  Удалить
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-book", AreaLabeledId = "modal-action-book-label", Size = ModalSize.Large })
+
+@section scripts
+{
+    <script src="~/js/home-index.js" asp-append-version="true"></script>
+}
