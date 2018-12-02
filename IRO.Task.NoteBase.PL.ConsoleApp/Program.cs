@@ -32,8 +32,8 @@ namespace IRO.Task.NoteBase.PL.ConsoleApp
 
         private static void DisplayCommands()
         {
-            Console.WriteLine("addUser [\"userName\"]\t\t\t- добавление пользователя в программу\n" +
-                              "login [userId]\t\t\t\t- вход под пользователем из списка\n" +
+            Console.WriteLine("addUser [\"userName\"] [password]\t\t\t- добавление пользователя в программу\n" +
+                              "login [userId] [password]\t\t\t\t- вход под пользователем из списка\n" +
                               "userslist\t\t\t\t- вывести имена всех пользователей\n" +
                               "deleteuser\t\t\t\t- удалить свою учётную запись (Нужна авторизация)\n" +
                               "addnote [bookId] [\"noteText\"]\t\t- добавить записку в книгу (Нужна авторизация)\n" +
@@ -59,12 +59,12 @@ namespace IRO.Task.NoteBase.PL.ConsoleApp
                 {
                     case "adduser":
                         {
-                            AddUser(userService, input[1]);
+                            AddUser(userService, input[1], input[2]);
                             break;
                         }
                     case "login":
                         {
-                            Login(userService, input[1]);
+                            Login(userService, input[1], input[2]);
                             break;
                         }
                     case "userslist":

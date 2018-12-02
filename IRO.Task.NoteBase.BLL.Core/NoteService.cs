@@ -56,19 +56,10 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<Note> GetAll()
-        {
-            return Database.Notes.GetAll().ToList();
-        }
+        public List<Note> GetAll() => Database.Notes.GetAll().ToList();
 
-        public List<Note> GetByBook(Book book)
-        {
-            return Database.Notes.Find(x => x.ParentBookId == book.Id).ToList();
-        }
+        public List<Note> GetByBook(Book book) => Database.Notes.Find(x => x.ParentBookId == book.Id).ToList();
 
-        public Note GetById(long noteId)
-        {
-            return Database.Notes.Get(noteId);
-        }
+        public Note GetById(long noteId) => Database.Notes.Get(noteId);
     }
 }
