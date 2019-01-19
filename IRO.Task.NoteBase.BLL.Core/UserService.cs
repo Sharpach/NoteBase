@@ -3,6 +3,9 @@ using IRO.Task.NoteBase.DAL.Contracts;
 using IRO.Task.NoteBase.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace IRO.Task.NoteBase.BLL.Core
 {
@@ -17,14 +20,24 @@ namespace IRO.Task.NoteBase.BLL.Core
 
         public User ActiveUser { get; private set; }
 
-        public bool AddUser(User user)
+        public bool AddUser(string username, string password)
         {
-            if (Database.Users.GetAll().Any(x => x.Id == user.Id))
+            var rand = new Random();
+            byte[] salt  = new byte[32];
+            
+            rand.NextBytes(salt);
+            
+            User user = new User
             {
-                return false;
-            }
+                Name = username, 
+                PasswordHash = 
+                    HashPassword(password,salt), 
+                PasswordSalt = salt
+            };
+            
             Database.Users.Create(user);
             Database.Save();
+            
             return true;
         }
 
@@ -38,23 +51,38 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<User> GetAll()
-        {
-            return Database.Users.GetAll().ToList();
-        }
+        public List<User> GetAll() => Database.Users.GetAll().ToList();
 
-        public User GetById(long userId)
-        {
-            return Database.Users.Get(userId);
-        }
+        public User GetById(long userId) => Database.Users.Get(userId);
 
-        public bool Login(long userId)
+        public User GetByName(string username) => Database.Users.Find((user) => user.Name == username).FirstOrDefault();
+
+        public bool Login(long userId, string password)
         {
-            var loggedUser = Database.Users.Get(userId);
-            if (loggedUser == null)
+            var user = Database.Users.Get(userId);
+
+            if (user == null)
+                throw new ArgumentException("User with that name was not found.");
+
+            if (user.PasswordHash.SequenceEqual(HashPassword(password, user.PasswordSalt)))
                 return false;
-            ActiveUser = loggedUser;
+
+            ActiveUser = user;
             return true;
+        }
+
+        private static byte[] HashPassword(string password, byte[] salt)
+        {
+            byte[] passwordHash;
+
+            using (var sha256 = SHA256.Create())
+            {
+                var bytes = new List<byte>(Encoding.UTF8.GetBytes(password));
+                bytes.AddRange(salt);
+                passwordHash = sha256.ComputeHash(bytes.ToArray());
+            }
+
+            return passwordHash;
         }
     }
 }

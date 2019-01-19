@@ -1,23 +1,29 @@
 using IRO.Task.NoteBase.BLL.Contracts;
 using IRO.Task.NoteBase.Entities;
 using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Collections.Generic;
 
 namespace IRO.Task.NoteBase.PL.ConsoleApp
 {
     internal partial class Program
     {
-        private static void AddUser(IUserService userLogic, string name)
+        private static void AddUser(IUserService userLogic, string name, string password)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 Console.WriteLine("Имя некорректно!");
                 return;
             }
-            User user = new User
+
+            if (string.IsNullOrWhiteSpace(password))
             {
-                Name = name,
-            };
-            Console.WriteLine(userLogic.AddUser(user)
+                Console.WriteLine("Пароль не может быть пустым!");
+                return;
+            }
+            
+            Console.WriteLine(userLogic.AddUser(name, password)
                 ? "Пользователь успешно добавлен."
                 : "Во время добавления пользователя произошла ошибка!");
         }
@@ -36,17 +42,13 @@ namespace IRO.Task.NoteBase.PL.ConsoleApp
             }
         }
 
-        private static void Login(IUserService userLogic, string userId)
+        private static void Login(IUserService userLogic, string name, string password)
         {
-            if (!long.TryParse(userId, out long id))
-            {
-                Console.WriteLine("Id пользователя некорректно!");
-                return;
-            }
+            User user = userLogic.GetByName(name);
 
-            Console.WriteLine(userLogic.Login(id)
-                ? $"Вы успешно зашли, {userLogic.ActiveUser.Name}."
-                : "Пользователь не найден!");
+            Console.WriteLine(userLogic.Login(user.Id, password)
+            ? $"Вы успешно зашли, {userLogic.ActiveUser.Name}."
+            : "Пароль неверный!");
         }
 
         private static void AddNote(INoteService noteLogic, IBookService bookLogic, IUserService userLogic, string bookId, string noteText)

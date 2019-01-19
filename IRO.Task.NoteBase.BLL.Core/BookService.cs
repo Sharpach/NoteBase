@@ -16,22 +16,11 @@ namespace IRO.Task.NoteBase.BLL.Core
             Database = uow;
         }
 
-        public Book GetById(long id)
-        {         
-            var book = Database.Books.Get(id);
-            if (book == null) throw new Exception("Книга не найдена");
-            return book;
-        }
+        public Book GetById(long id) => Database.Books.Get(id);
 
-        public List<Book> GetAll()
-        {
-            return Database.Books.GetAll().ToList();
-        }
+        public List<Book> GetAll() => Database.Books.GetAll().ToList();
 
-        public void Dispose()
-        {
-            Database.Dispose();
-        }
+        public List<Book> GetByUser(User user) => Database.Books.Find(x => x.OwnerId == user.Id).ToList();
 
         public bool AddBook(Book book)
         {
@@ -63,11 +52,6 @@ namespace IRO.Task.NoteBase.BLL.Core
             return true;
         }
 
-        public List<Book> GetByUser(User user)
-        {
-            return Database.Books.Find(x => x.OwnerId == user.Id).ToList();
-        }
-
         public bool DeleteAllBooksByUser(User user)
         {
             var books = GetByUser(user);
@@ -77,6 +61,11 @@ namespace IRO.Task.NoteBase.BLL.Core
             }
             Database.Save();
             return true;
+        }
+
+        public void Dispose()
+        {
+            Database.Dispose();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace IRO.Task.NoteBase.DAL.EF
         public MainContext(string connectionString)
         {
             ConnectionString = connectionString;
+            Database.EnsureCreated();
         }
 
         //public MainContext(DbContextOptions<MainContext> options) : base(options)
